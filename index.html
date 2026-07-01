@@ -253,7 +253,7 @@ body {
       <div class="kpi-card">
         <div class="kpi-value" style="color:var(--orange)">5.8%</div>
         <div class="kpi-label">Win Rate</div>
-        <div class="kpi-delta delta-up">101 won / 1,644 lost</div>
+        <div class="kpi-delta delta-up">Nearly all disputes become losses</div>
       </div>
       <div class="kpi-card">
         <div class="kpi-value" style="color:var(--green)">-71%</div>
@@ -281,7 +281,7 @@ body {
           <tr><td>Invoice Simple dispute rate dropped from 130 bps to 16 bps</td><td class="success">Interventions working</td><td>Monitoring</td></tr>
           <tr><td>Joist peaked at 199 bps (Apr), now at 58 bps</td><td class="warn">Still elevated</td><td>Improving</td></tr>
           <tr><td>Joist fraudulent disputes: $1.42M in losses (6mo)</td><td class="danger">Critical</td><td>Active mitigation</td></tr>
-          <tr><td>Win rates 3-5% on Joist/Invoice Simple</td><td class="danger">Revenue at risk</td><td>Smart Disputes pending</td></tr>
+          <tr><td>Win rates 3-5% on Joist/Invoice Simple</td><td class="danger">Brand & monitoring risk</td><td>Smart Disputes pending</td></tr>
           <tr><td>DrChrono + Service Fusion healthy (2-7 bps)</td><td class="success">No action needed</td><td>Stable</td></tr>
           <tr><td>"Debit not authorized" on Joist: 13 disputes, $366K lost</td><td class="danger">Large-dollar fraud</td><td>Investigate</td></tr>
         </tbody>
@@ -314,10 +314,11 @@ body {
           <tr><td class="brand-col">DrChrono</td><td class="num success">5.1</td><td class="num success">4.3</td><td class="num success">2.2</td><td class="num success">3.9</td><td class="num success">2.2</td><td class="num success">2.0</td><td class="num success">↓ Healthy</td></tr>
           <tr><td class="brand-col">Service Fusion</td><td class="num success">7.4</td><td class="num success">6.7</td><td class="num warn">10.9</td><td class="num success">3.2</td><td class="num success">6.9</td><td class="num success">2.0</td><td class="num success">↓ Stable</td></tr>
           <tr><td class="brand-col">Invoice Simple</td><td class="num danger">129.7</td><td class="num danger">137.9</td><td class="num warn">40.7</td><td class="num warn">32.2</td><td class="num warn">25.2</td><td class="num highlight">16.5</td><td class="num success">↓↓ -88%</td></tr>
-          <tr><td class="brand-col">Joist</td><td class="num warn">73.1</td><td class="num danger">99.8</td><td class="num danger">158.2</td><td class="num danger">198.8</td><td class="num danger">170.3</td><td class="num warn">58.3</td><td class="num success">↓↓ -71%</td></tr>
+          <tr><td class="brand-col">Joist *</td><td class="num warn">73.1</td><td class="num danger">99.8</td><td class="num danger">158.2</td><td class="num danger">198.8</td><td class="num danger">170.3</td><td class="num warn">58.3</td><td class="num success">↓↓ -71%</td></tr>
           <tr><td class="brand-col">PaySimple</td><td class="num warn">80.9</td><td class="num warn">52.1</td><td class="num warn">43.8</td><td class="num warn">39.5</td><td class="num warn">77.1</td><td class="num success">0.0</td><td class="num highlight">Low vol.</td></tr>
         </tbody>
       </table>
+      <p style="font-size:12px;color:var(--text-dim);margin-top:12px;">* Joist spike (Jan→Apr): Driven by card cashing fraud pattern — fake businesses with debit-only payouts, all-caps names, AI-generated websites. Decline (Apr→Jun): Coincides with Verisoul deployment (May) and accelerated fraudulent account rejections.</p>
     </div>
   </div>
 
@@ -341,6 +342,7 @@ body {
         </div>
         <div class="card-badge badge-red">Win rates critically low</div>
       </div>
+      <p style="font-size:13px;color:var(--text-mid);margin-bottom:16px;">Low win rates mean disputes become permanent losses, increasing your platform's dispute ratios, raising monitoring program risk, and degrading connected account experience. Smart Disputes addresses this by automating evidence collection for eligible disputes.</p>
       <table class="data-table">
         <thead><tr><th>Brand</th><th class="num">Disputes</th><th class="num">Disputed $</th><th class="num">Won</th><th class="num">Lost</th><th class="num">Win Rate</th></tr></thead>
         <tbody>
@@ -386,7 +388,7 @@ body {
       <div class="card-header">
         <div>
           <div class="card-title">Invoice Simple — Loss Breakdown by Reason</div>
-          <div class="card-subtitle">$806K in realized losses across 822 disputes</div>
+          <div class="card-subtitle">~$795K in realized losses across 822 disputes</div>
         </div>
         <div class="card-badge badge-orange">Mixed fraud + service</div>
       </div>
@@ -455,7 +457,7 @@ body {
           <div class="rec-title">Activate Smart Disputes on Joist + Invoice Simple</div>
         </div>
         <div class="rec-body">
-          Win rates of 3-5% on Joist and Invoice Simple represent $3.7M in disputed dollars with virtually no defense. Even a modest win rate improvement (3% → 15%) on this base would recover $400-500K annually. Amendment in signature. Once signed, opt-out rollout to all CAs on Joist and Invoice Simple first.
+          Win rates of 3-5% mean nearly every dispute becomes a permanent loss, affecting your platform's dispute rates, monitoring program exposure, and connected account experience. Smart Disputes automates evidence collection and submission for eligible disputes. Based on Phase 1 eligibility (~25% of disputes) and benchmarks from similar platform profiles, estimated first-year recovery is $100-200K, scaling as eligibility expands in Phase 2 and Phase 3. Amendment is in signature. Once signed, opt-out rollout to Joist and Invoice Simple CAs first.
           <br><span class="rec-tag tag-immediate">Immediate — This Quarter</span>
         </div>
       </div>
@@ -466,7 +468,7 @@ body {
           <div class="rec-title">Investigate Joist "Debit Not Authorized" Large-Dollar Fraud</div>
         </div>
         <div class="rec-body">
-          13 disputes averaging $28K each ($366K total losses). These are likely large-dollar single-transaction fraud from synthetic identity / business impersonation cases. Pull the specific CAs generating these disputes and cross-reference against Chris's fraudops submissions.
+          13 disputes averaging $28K each ($366K total). These are likely large-dollar single-transaction fraud from synthetic identity or business impersonation cases. Next step: pull the specific connected accounts generating these disputes and cross-reference against Chris's weekly fraud submissions to determine if they overlap with known bad actors or represent a new vector.
           <br><span class="rec-tag tag-immediate">Immediate — This Quarter</span>
         </div>
       </div>
@@ -474,44 +476,33 @@ body {
       <div class="rec-card">
         <div class="rec-header">
           <div class="rec-number">3</div>
-          <div class="rec-title">Evidence Submission Audit</div>
+          <div class="rec-title">Identity Verification for High-Risk Onboarding</div>
         </div>
         <div class="rec-body">
-          The 3-5% win rate on Joist/Invoice Simple could indicate CAs aren't submitting evidence at all. DrChrono's 22% win rate proves evidence submission works when it happens. Smart Disputes solves this automatically by handling evidence submission for CAs.
-          <br><span class="rec-tag tag-immediate">Immediate — This Quarter</span>
+          The card cashing pattern on Joist (fake businesses, AI-generated websites, debit-only payouts) could be caught at onboarding with identity verification before account activation. This is an area we're actively exploring for platforms with your risk profile. No confirmed timeline yet, but worth discussing as a Q4 pilot if the product path clears.
+          <br><span class="rec-tag tag-medium">Exploring — No Confirmed Timeline</span>
         </div>
       </div>
 
       <div class="rec-card">
         <div class="rec-header">
           <div class="rec-number">4</div>
-          <div class="rec-title">Identity Verification for High-Risk Onboarding</div>
+          <div class="rec-title">Bank Account Verification for New Joist CAs</div>
         </div>
         <div class="rec-body">
-          The card cashing pattern on Joist (fake businesses, AI-generated websites, debit-only payouts) could be caught at onboarding with Identity verification. Currently investigating availability for SMR/SNBL platforms.
-          <br><span class="rec-tag tag-medium">Medium-Term — Next Quarter</span>
+          The "debit-only payouts" fraud pattern could be disrupted by requiring bank account ownership verification before enabling payouts. This capability is already active on your platform. The discussion: should it become mandatory for new Joist connected accounts given the fraud patterns we're seeing?
+          <br><span class="rec-tag tag-medium">Exploring — Discussion Item</span>
         </div>
       </div>
 
       <div class="rec-card">
         <div class="rec-header">
           <div class="rec-number">5</div>
-          <div class="rec-title">Financial Connections for Bank Verification</div>
+          <div class="rec-title">Platform-Level Fraud Rules</div>
         </div>
         <div class="rec-body">
-          The "debit-only payouts" fraud pattern could be disrupted by verifying bank account ownership before enabling payouts. Already active ($10.6K ONR). Evaluate expanding to mandatory verification for new Joist CAs.
-          <br><span class="rec-tag tag-medium">Medium-Term — Next Quarter</span>
-        </div>
-      </div>
-
-      <div class="rec-card">
-        <div class="rec-header">
-          <div class="rec-number">6</div>
-          <div class="rec-title">Radar for Platforms (RfP)</div>
-        </div>
-        <div class="rec-body">
-          Platform-level fraud rules could catch patterns across CAs (same fingerprints, same fraud vectors) before disputes occur. NEW 2026 product. Requires Reject API gate expansion for SMR accounts. Engineering scoping in progress.
-          <br><span class="rec-tag tag-medium">Medium-Term — Next Quarter</span>
+          Platform-level fraud rules that detect patterns across connected accounts (same fingerprints, repeated fraud vectors) before disputes occur. This is a newer capability we're evaluating for platforms with managed risk. Early stage, no committed timeline. We'll update as the product path develops.
+          <br><span class="rec-tag tag-medium">Exploring — Early Stage</span>
         </div>
       </div>
     </div>
