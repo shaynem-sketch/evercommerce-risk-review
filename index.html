@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EverCommerce — Quarterly Risk Review · Q3 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:      #162050;
+  --navy-mid:  #1c2d6b;
+  --bg-deep:   #0b1220;
+  --bg-card:   #111d33;
+  --neon:      #DFFE02;
+  --purple:    #635BFF;
+  --blue-lt:   #DBEAFF;
+  --blue-mid:  #4A7FD4;
+  --white:     #FFFFFF;
+  --text-dim:  rgba(219,234,255,0.52);
+  --text-mid:  rgba(219,234,255,0.78);
+  --border:    rgba(219,234,255,0.09);
+  --border-md: rgba(219,234,255,0.17);
+  --green:     #4ADE80;
+  --red:       #F87171;
+  --orange:    #FB923C;
+  --cyan:      #38BDF8;
+  --pink:      #F472B6;
+  --future:    #C084FC;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg-deep);
+  font-family: 'Inter', sans-serif;
+  color: var(--white);
+  min-height: 100vh;
+}
+
+/* ── PASSWORD GATE ── */
+.gate-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--bg-deep);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 24px;
+  transition: opacity 0.4s, visibility 0.4s;
+}
+.gate-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.gate-brand { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 28px; color: var(--neon); }
+.gate-title { font-size: 16px; color: var(--text-mid); margin-top: -12px; }
+.gate-input {
+  background: rgba(255,255,255,0.05); border: 1px solid var(--border-md);
+  border-radius: 8px; padding: 12px 20px; width: 280px;
+  font-size: 14px; color: var(--white); outline: none;
+  transition: border-color 0.2s;
+}
+.gate-input:focus { border-color: var(--purple); }
+.gate-input::placeholder { color: var(--text-dim); }
+.gate-btn {
+  background: var(--purple); color: var(--white); border: none;
+  border-radius: 8px; padding: 12px 36px; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: background 0.2s;
+}
+.gate-btn:hover { background: #7c6cff; }
+.gate-error { color: var(--red); font-size: 12px; min-height: 18px; }
+.gate-conf { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--text-dim); margin-top: 16px; }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  background: var(--navy);
+  border-bottom: 1px solid var(--border);
+  padding: 28px 48px 24px;
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 24px; flex-wrap: wrap;
+}
+.ph-left { display: flex; align-items: center; gap: 20px; }
+.logo-fallback { font-family:'Poppins',sans-serif; font-weight:800; font-size:20px; color:var(--neon); }
+.ph-divider { width:1px; height:36px; background:var(--border-md); flex-shrink:0; }
+.ph-eyebrow { font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--neon); margin-bottom:4px; }
+.ph-title { font-family:'Poppins',sans-serif; font-size:22px; font-weight:700; color:var(--white); line-height:1.2; }
+.ph-sub { font-size:13px; color:var(--text-dim); margin-top:4px; }
+.ph-right { display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
+.ph-badge { background:rgba(223,254,2,.12); border:1px solid rgba(223,254,2,.3); color:var(--neon); font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:5px 12px; border-radius:20px; }
+.ph-meta { font-size:11px; color:var(--text-dim); text-align:right; }
+
+/* ── TAB NAV ── */
+.tab-nav {
+  background: #0f1a2e;
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+  display: flex; overflow-x: auto;
+}
+.tab-pill {
+  padding: 14px 22px; font-size: 12px; font-weight: 600; color: var(--text-dim);
+  border-bottom: 2px solid transparent; white-space: nowrap;
+  cursor: pointer; transition: color 0.2s, border-color 0.2s;
+}
+.tab-pill:hover { color: var(--white); border-bottom-color: var(--purple); }
+.tab-pill.active { color: var(--white); border-bottom-color: var(--neon); }
+
+/* ── CONTENT ── */
+.content {
+  padding: 48px 48px 80px;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+.tab-panel { display: none; flex-direction: column; gap: 32px; }
+.tab-panel.active { display: flex; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px 32px;
+}
+.card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20px;
+}
+.card-title { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700; }
+.card-subtitle { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+.card-badge {
+  font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 12px;
+}
+.badge-green { background: rgba(74,222,128,.12); color: var(--green); border: 1px solid rgba(74,222,128,.3); }
+.badge-red { background: rgba(248,113,113,.12); color: var(--red); border: 1px solid rgba(248,113,113,.3); }
+.badge-orange { background: rgba(251,146,60,.12); color: var(--orange); border: 1px solid rgba(251,146,60,.3); }
+
+/* ── KPI ROW ── */
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.kpi-card {
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+  border-radius: 10px; padding: 20px; text-align: center;
+}
+.kpi-value { font-family: 'Poppins', sans-serif; font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+.kpi-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .08em; font-weight: 600; }
+.kpi-delta { font-size: 11px; margin-top: 4px; font-weight: 600; }
+.delta-up { color: var(--red); }
+.delta-down { color: var(--green); }
+
+/* ── TABLES ── */
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table th {
+  text-align: left; padding: 10px 14px; font-size: 10px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--text-dim);
+  border-bottom: 1px solid var(--border-md);
+}
+.data-table td {
+  padding: 12px 14px; border-bottom: 1px solid var(--border);
+  color: var(--text-mid);
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+.data-table .highlight { color: var(--white); font-weight: 600; }
+.data-table .danger { color: var(--red); font-weight: 600; }
+.data-table .success { color: var(--green); font-weight: 600; }
+.data-table .warn { color: var(--orange); font-weight: 600; }
+.data-table .brand-col { color: var(--white); font-weight: 600; }
+.data-table tfoot td { font-weight: 700; color: var(--white); border-top: 1px solid var(--border-md); }
+
+/* ── CHARTS ── */
+.chart-wrap { position: relative; height: 320px; margin-top: 12px; }
+
+/* ── RECOMMENDATIONS ── */
+.rec-card {
+  background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+  border-radius: 10px; padding: 20px 24px; margin-bottom: 12px;
+}
+.rec-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.rec-number {
+  width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; background: var(--purple); color: var(--white); flex-shrink: 0;
+}
+.rec-title { font-weight: 700; font-size: 14px; }
+.rec-body { font-size: 13px; color: var(--text-mid); line-height: 1.6; padding-left: 40px; }
+.rec-tag {
+  display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; padding: 3px 8px; border-radius: 4px; margin-top: 8px;
+}
+.tag-immediate { background: rgba(248,113,113,.12); color: var(--red); }
+.tag-medium { background: rgba(251,146,60,.12); color: var(--orange); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .page-header { padding: 20px 24px; }
+  .tab-nav { padding: 0 24px; }
+  .content { padding: 24px 24px 60px; }
+  .card { padding: 20px; }
+  .kpi-row { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div class="gate-overlay" id="gate">
+  <div class="gate-brand">EverCommerce</div>
+  <div class="gate-title">Quarterly Risk Review · Q3 2026</div>
+  <input type="password" class="gate-input" id="gate-pw" placeholder="Enter password" autocomplete="off">
+  <button class="gate-btn" id="gate-btn">Access</button>
+  <div class="gate-error" id="gate-err"></div>
+  <div class="gate-conf">Stripe Confidential</div>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="ph-left">
+    <div class="logo-fallback">EverCommerce</div>
+    <div class="ph-divider"></div>
+    <div>
+      <div class="ph-eyebrow">Quarterly Risk Review</div>
+      <div class="ph-title">Portfolio Risk & Dispute Analysis</div>
+      <div class="ph-sub">Data period: January – June 2026 (6 months)</div>
+    </div>
+  </div>
+  <div class="ph-right">
+    <div class="ph-badge">Stripe Confidential</div>
+    <div class="ph-meta">Prepared: July 2026<br>Stripe + EverCommerce</div>
+  </div>
+</div>
+
+<!-- TAB NAV -->
+<div class="tab-nav">
+  <div class="tab-pill active" data-tab="summary">Executive Summary</div>
+  <div class="tab-pill" data-tab="rates">Dispute Rates</div>
+  <div class="tab-pill" data-tab="volume">Dispute Volume</div>
+  <div class="tab-pill" data-tab="reasons">Reason Codes</div>
+  <div class="tab-pill" data-tab="growth">Volume Growth</div>
+  <div class="tab-pill" data-tab="recs">Recommendations</div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- TAB: EXECUTIVE SUMMARY -->
+  <div class="tab-panel active" id="panel-summary">
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-value" style="color:var(--white)">1,991</div>
+        <div class="kpi-label">Total Disputes</div>
+        <div class="kpi-delta delta-down">6-month period</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value" style="color:var(--red)">$4.07M</div>
+        <div class="kpi-label">Disputed Amount</div>
+        <div class="kpi-delta delta-up">Joist: 71% of total</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value" style="color:var(--orange)">5.8%</div>
+        <div class="kpi-label">Win Rate</div>
+        <div class="kpi-delta delta-up">101 won / 1,644 lost</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value" style="color:var(--green)">-71%</div>
+        <div class="kpi-label">Joist Rate (peak→Jun)</div>
+        <div class="kpi-delta delta-down">199 bps → 58 bps</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value" style="color:var(--green)">-88%</div>
+        <div class="kpi-label">Inv. Simple Rate (Jan→Jun)</div>
+        <div class="kpi-delta delta-down">130 bps → 16 bps</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Portfolio Assessment</div>
+          <div class="card-subtitle">Key findings from the 6-month review period</div>
+        </div>
+        <div class="card-badge badge-orange">Action Required</div>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Finding</th><th>Impact</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Invoice Simple dispute rate dropped from 130 bps to 16 bps</td><td class="success">Interventions working</td><td>Monitoring</td></tr>
+          <tr><td>Joist peaked at 199 bps (Apr), now at 58 bps</td><td class="warn">Still elevated</td><td>Improving</td></tr>
+          <tr><td>Joist fraudulent disputes: $1.42M in losses (6mo)</td><td class="danger">Critical</td><td>Active mitigation</td></tr>
+          <tr><td>Win rates 3-5% on Joist/Invoice Simple</td><td class="danger">Revenue at risk</td><td>Smart Disputes pending</td></tr>
+          <tr><td>DrChrono + Service Fusion healthy (2-7 bps)</td><td class="success">No action needed</td><td>Stable</td></tr>
+          <tr><td>"Debit not authorized" on Joist: 13 disputes, $366K lost</td><td class="danger">Large-dollar fraud</td><td>Investigate</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TAB: DISPUTE RATES -->
+  <div class="tab-panel" id="panel-rates">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Dispute Rate Trend by Brand</div>
+          <div class="card-subtitle">Basis points (bps) — connected account charges with disputes / total charges × 10,000</div>
+        </div>
+      </div>
+      <div class="chart-wrap"><canvas id="chart-rates"></canvas></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Monthly Dispute Rates (bps)</div>
+          <div class="card-subtitle">Lower is better. VAMP threshold: 90 bps (Visa), ECM threshold: 75 bps (Mastercard)</div>
+        </div>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Brand</th><th class="num">Jan</th><th class="num">Feb</th><th class="num">Mar</th><th class="num">Apr</th><th class="num">May</th><th class="num">Jun</th><th class="num">Trend</th></tr></thead>
+        <tbody>
+          <tr><td class="brand-col">DrChrono</td><td class="num success">5.1</td><td class="num success">4.3</td><td class="num success">2.2</td><td class="num success">3.9</td><td class="num success">2.2</td><td class="num success">2.0</td><td class="num success">↓ Healthy</td></tr>
+          <tr><td class="brand-col">Service Fusion</td><td class="num success">7.4</td><td class="num success">6.7</td><td class="num warn">10.9</td><td class="num success">3.2</td><td class="num success">6.9</td><td class="num success">2.0</td><td class="num success">↓ Stable</td></tr>
+          <tr><td class="brand-col">Invoice Simple</td><td class="num danger">129.7</td><td class="num danger">137.9</td><td class="num warn">40.7</td><td class="num warn">32.2</td><td class="num warn">25.2</td><td class="num highlight">16.5</td><td class="num success">↓↓ -88%</td></tr>
+          <tr><td class="brand-col">Joist</td><td class="num warn">73.1</td><td class="num danger">99.8</td><td class="num danger">158.2</td><td class="num danger">198.8</td><td class="num danger">170.3</td><td class="num warn">58.3</td><td class="num success">↓↓ -71%</td></tr>
+          <tr><td class="brand-col">PaySimple</td><td class="num warn">80.9</td><td class="num warn">52.1</td><td class="num warn">43.8</td><td class="num warn">39.5</td><td class="num warn">77.1</td><td class="num success">0.0</td><td class="num highlight">Low vol.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TAB: DISPUTE VOLUME -->
+  <div class="tab-panel" id="panel-volume">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">6-Month Dispute Summary by Brand</div>
+          <div class="card-subtitle">January – June 2026</div>
+        </div>
+      </div>
+      <div class="chart-wrap"><canvas id="chart-volume"></canvas></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Dispute Outcomes</div>
+          <div class="card-subtitle">Win rate = disputes won / (won + lost). Open disputes excluded.</div>
+        </div>
+        <div class="card-badge badge-red">Win rates critically low</div>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Brand</th><th class="num">Disputes</th><th class="num">Disputed $</th><th class="num">Won</th><th class="num">Lost</th><th class="num">Win Rate</th></tr></thead>
+        <tbody>
+          <tr><td class="brand-col">Joist</td><td class="num highlight">900</td><td class="num danger">$2,893,259</td><td class="num">27</td><td class="num danger">722</td><td class="num danger">3.6%</td></tr>
+          <tr><td class="brand-col">Invoice Simple</td><td class="num highlight">822</td><td class="num danger">$970,285</td><td class="num">35</td><td class="num danger">722</td><td class="num danger">4.6%</td></tr>
+          <tr><td class="brand-col">Service Fusion</td><td class="num">138</td><td class="num warn">$159,574</td><td class="num">16</td><td class="num">105</td><td class="num warn">13.2%</td></tr>
+          <tr><td class="brand-col">DrChrono</td><td class="num">116</td><td class="num">$26,881</td><td class="num success">23</td><td class="num">81</td><td class="num success">22.1%</td></tr>
+          <tr><td class="brand-col">PaySimple</td><td class="num">15</td><td class="num">$18,623</td><td class="num">0</td><td class="num">14</td><td class="num danger">0.0%</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td>TOTAL</td><td class="num">1,991</td><td class="num">$4,068,622</td><td class="num">101</td><td class="num">1,644</td><td class="num">5.8%</td></tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <!-- TAB: REASON CODES -->
+  <div class="tab-panel" id="panel-reasons">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Joist — Loss Breakdown by Reason</div>
+          <div class="card-subtitle">$2.39M in realized losses across 900 disputes</div>
+        </div>
+        <div class="card-badge badge-red">Fraud dominant</div>
+      </div>
+      <div class="chart-wrap" style="height:280px"><canvas id="chart-joist-reasons"></canvas></div>
+      <table class="data-table" style="margin-top:20px">
+        <thead><tr><th>Reason</th><th class="num">Count</th><th class="num">Lost Amount</th><th class="num">% of Losses</th></tr></thead>
+        <tbody>
+          <tr><td class="brand-col">Fraudulent</td><td class="num">685</td><td class="num danger">$1,416,195</td><td class="num danger">59%</td></tr>
+          <tr><td class="brand-col">Debit Not Authorized</td><td class="num">13</td><td class="num danger">$366,120</td><td class="num danger">15%</td></tr>
+          <tr><td class="brand-col">Product Not Received</td><td class="num">102</td><td class="num warn">$354,921</td><td class="num warn">15%</td></tr>
+          <tr><td class="brand-col">Product Unacceptable</td><td class="num">65</td><td class="num">$120,388</td><td class="num">5%</td></tr>
+          <tr><td class="brand-col">Credit Not Processed</td><td class="num">14</td><td class="num">$60,281</td><td class="num">3%</td></tr>
+          <tr><td class="brand-col">General</td><td class="num">10</td><td class="num">$54,070</td><td class="num">2%</td></tr>
+          <tr><td class="brand-col">Duplicate</td><td class="num">9</td><td class="num">$19,976</td><td class="num">1%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Invoice Simple — Loss Breakdown by Reason</div>
+          <div class="card-subtitle">$806K in realized losses across 822 disputes</div>
+        </div>
+        <div class="card-badge badge-orange">Mixed fraud + service</div>
+      </div>
+      <div class="chart-wrap" style="height:280px"><canvas id="chart-is-reasons"></canvas></div>
+      <table class="data-table" style="margin-top:20px">
+        <thead><tr><th>Reason</th><th class="num">Count</th><th class="num">Lost Amount</th><th class="num">% of Losses</th></tr></thead>
+        <tbody>
+          <tr><td class="brand-col">Product Not Received</td><td class="num">123</td><td class="num danger">$250,411</td><td class="num danger">31%</td></tr>
+          <tr><td class="brand-col">Fraudulent</td><td class="num">541</td><td class="num danger">$240,725</td><td class="num danger">30%</td></tr>
+          <tr><td class="brand-col">Product Unacceptable</td><td class="num">80</td><td class="num warn">$134,600</td><td class="num warn">17%</td></tr>
+          <tr><td class="brand-col">Debit Not Authorized</td><td class="num">36</td><td class="num">$90,724</td><td class="num">11%</td></tr>
+          <tr><td class="brand-col">Credit Not Processed</td><td class="num">27</td><td class="num">$41,168</td><td class="num">5%</td></tr>
+          <tr><td class="brand-col">Duplicate</td><td class="num">8</td><td class="num">$36,055</td><td class="num">4%</td></tr>
+          <tr><td class="brand-col">General</td><td class="num">6</td><td class="num">$1,772</td><td class="num">&lt;1%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TAB: VOLUME GROWTH -->
+  <div class="tab-panel" id="panel-growth">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Charge Volume Growth by Brand</div>
+          <div class="card-subtitle">Connected account charges per month. Dispute rate improvements are happening despite rapid volume growth.</div>
+        </div>
+        <div class="card-badge badge-green">Strong growth</div>
+      </div>
+      <div class="chart-wrap"><canvas id="chart-growth"></canvas></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Volume Context</div>
+          <div class="card-subtitle">January vs June 2026 connected account charge counts</div>
+        </div>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Brand</th><th class="num">Jan Charges</th><th class="num">Jun Charges</th><th class="num">Growth</th><th class="num">Monthly Avg</th></tr></thead>
+        <tbody>
+          <tr><td class="brand-col">DrChrono</td><td class="num">46,986</td><td class="num">54,019</td><td class="num success">+15%</td><td class="num">~52K</td></tr>
+          <tr><td class="brand-col">Service Fusion</td><td class="num">28,219</td><td class="num">40,433</td><td class="num success">+43%</td><td class="num">~33K</td></tr>
+          <tr><td class="brand-col">Invoice Simple</td><td class="num">13,264</td><td class="num">23,094</td><td class="num success">+74%</td><td class="num">~18K</td></tr>
+          <tr><td class="brand-col">Joist</td><td class="num">7,930</td><td class="num">15,106</td><td class="num success">+90%</td><td class="num">~11K</td></tr>
+          <tr><td class="brand-col">PaySimple</td><td class="num">371</td><td class="num">533</td><td class="num success">+44%</td><td class="num">~450</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TAB: RECOMMENDATIONS -->
+  <div class="tab-panel" id="panel-recs">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Recommendations</div>
+          <div class="card-subtitle">Prioritized actions based on data analysis</div>
+        </div>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-header">
+          <div class="rec-number">1</div>
+          <div class="rec-title">Activate Smart Disputes on Joist + Invoice Simple</div>
+        </div>
+        <div class="rec-body">
+          Win rates of 3-5% on Joist and Invoice Simple represent $3.7M in disputed dollars with virtually no defense. Even a modest win rate improvement (3% → 15%) on this base would recover $400-500K annually. Amendment in signature. Once signed, opt-out rollout to all CAs on Joist and Invoice Simple first.
+          <br><span class="rec-tag tag-immediate">Immediate — This Quarter</span>
+        </div>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-header">
+          <div class="rec-number">2</div>
+          <div class="rec-title">Investigate Joist "Debit Not Authorized" Large-Dollar Fraud</div>
+        </div>
+        <div class="rec-body">
+          13 disputes averaging $28K each ($366K total losses). These are likely large-dollar single-transaction fraud from synthetic identity / business impersonation cases. Pull the specific CAs generating these disputes and cross-reference against Chris's fraudops submissions.
+          <br><span class="rec-tag tag-immediate">Immediate — This Quarter</span>
+        </div>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-header">
+          <div class="rec-number">3</div>
+          <div class="rec-title">Evidence Submission Audit</div>
+        </div>
+        <div class="rec-body">
+          The 3-5% win rate on Joist/Invoice Simple could indicate CAs aren't submitting evidence at all. DrChrono's 22% win rate proves evidence submission works when it happens. Smart Disputes solves this automatically by handling evidence submission for CAs.
+          <br><span class="rec-tag tag-immediate">Immediate — This Quarter</span>
+        </div>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-header">
+          <div class="rec-number">4</div>
+          <div class="rec-title">Identity Verification for High-Risk Onboarding</div>
+        </div>
+        <div class="rec-body">
+          The card cashing pattern on Joist (fake businesses, AI-generated websites, debit-only payouts) could be caught at onboarding with Identity verification. Currently investigating availability for SMR/SNBL platforms.
+          <br><span class="rec-tag tag-medium">Medium-Term — Next Quarter</span>
+        </div>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-header">
+          <div class="rec-number">5</div>
+          <div class="rec-title">Financial Connections for Bank Verification</div>
+        </div>
+        <div class="rec-body">
+          The "debit-only payouts" fraud pattern could be disrupted by verifying bank account ownership before enabling payouts. Already active ($10.6K ONR). Evaluate expanding to mandatory verification for new Joist CAs.
+          <br><span class="rec-tag tag-medium">Medium-Term — Next Quarter</span>
+        </div>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-header">
+          <div class="rec-number">6</div>
+          <div class="rec-title">Radar for Platforms (RfP)</div>
+        </div>
+        <div class="rec-body">
+          Platform-level fraud rules could catch patterns across CAs (same fingerprints, same fraud vectors) before disputes occur. NEW 2026 product. Requires Reject API gate expansion for SMR accounts. Engineering scoping in progress.
+          <br><span class="rec-tag tag-medium">Medium-Term — Next Quarter</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Password gate
+const PASS = 'ecrisk2026';
+const gate = document.getElementById('gate');
+const pwInput = document.getElementById('gate-pw');
+const gateBtn = document.getElementById('gate-btn');
+const gateErr = document.getElementById('gate-err');
+
+if (sessionStorage.getItem('ec-auth') === '1') gate.classList.add('hidden');
+
+gateBtn.addEventListener('click', () => {
+  if (pwInput.value === PASS) {
+    sessionStorage.setItem('ec-auth', '1');
+    gate.classList.add('hidden');
+  } else {
+    gateErr.textContent = 'Incorrect password';
+    pwInput.value = '';
+  }
+});
+pwInput.addEventListener('keydown', e => { if (e.key === 'Enter') gateBtn.click(); });
+
+// Tab navigation
+document.querySelectorAll('.tab-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('.tab-pill').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    document.getElementById('panel-' + pill.dataset.tab).classList.add('active');
+    initCharts();
+  });
+});
+
+// Charts
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+const chartOpts = {
+  responsive: true, maintainAspectRatio: false,
+  plugins: { legend: { labels: { color: '#a0a0b0', font: { size: 11 } } } },
+  scales: {
+    x: { ticks: { color: '#a0a0b0' }, grid: { color: 'rgba(219,234,255,0.06)' } },
+    y: { ticks: { color: '#a0a0b0' }, grid: { color: 'rgba(219,234,255,0.06)' } }
+  }
+};
+
+let chartsInitialized = {};
+
+function initCharts() {
+  // Dispute Rate Line Chart
+  if (!chartsInitialized.rates && document.getElementById('chart-rates').offsetParent) {
+    new Chart(document.getElementById('chart-rates'), {
+      type: 'line',
+      data: {
+        labels: months,
+        datasets: [
+          { label: 'Joist', data: [73.1, 99.8, 158.2, 198.8, 170.3, 58.3], borderColor: '#F87171', backgroundColor: 'rgba(248,113,113,0.1)', tension: 0.3, borderWidth: 2.5 },
+          { label: 'Invoice Simple', data: [129.7, 137.9, 40.7, 32.2, 25.2, 16.5], borderColor: '#FB923C', backgroundColor: 'rgba(251,146,60,0.1)', tension: 0.3, borderWidth: 2.5 },
+          { label: 'Service Fusion', data: [7.4, 6.7, 10.9, 3.2, 6.9, 2.0], borderColor: '#4ADE80', backgroundColor: 'rgba(74,222,128,0.1)', tension: 0.3, borderWidth: 2 },
+          { label: 'DrChrono', data: [5.1, 4.3, 2.2, 3.9, 2.2, 2.0], borderColor: '#38BDF8', backgroundColor: 'rgba(56,189,248,0.1)', tension: 0.3, borderWidth: 2 },
+          { label: 'PaySimple', data: [80.9, 52.1, 43.8, 39.5, 77.1, 0], borderColor: '#C084FC', backgroundColor: 'rgba(192,132,252,0.1)', tension: 0.3, borderWidth: 1.5, borderDash: [5,5] }
+        ]
+      },
+      options: { ...chartOpts, plugins: { ...chartOpts.plugins, annotation: {} },
+        scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, title: { display: true, text: 'Dispute Rate (bps)', color: '#a0a0b0' } } }
+      }
+    });
+    chartsInitialized.rates = true;
+  }
+
+  // Volume Bar Chart
+  if (!chartsInitialized.volume && document.getElementById('chart-volume').offsetParent) {
+    new Chart(document.getElementById('chart-volume'), {
+      type: 'bar',
+      data: {
+        labels: ['Joist', 'Invoice Simple', 'Service Fusion', 'DrChrono', 'PaySimple'],
+        datasets: [
+          { label: 'Disputed Amount ($)', data: [2893259, 970285, 159574, 26881, 18623], backgroundColor: ['rgba(248,113,113,0.7)', 'rgba(251,146,60,0.7)', 'rgba(74,222,128,0.7)', 'rgba(56,189,248,0.7)', 'rgba(192,132,252,0.7)'], borderColor: ['#F87171', '#FB923C', '#4ADE80', '#38BDF8', '#C084FC'], borderWidth: 1 }
+        ]
+      },
+      options: { ...chartOpts, plugins: { ...chartOpts.plugins, legend: { display: false } },
+        scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, title: { display: true, text: 'Disputed Amount (USD)', color: '#a0a0b0' },
+          ticks: { color: '#a0a0b0', callback: v => '$' + (v/1000000).toFixed(1) + 'M' } } }
+      }
+    });
+    chartsInitialized.volume = true;
+  }
+
+  // Joist Reasons Doughnut
+  if (!chartsInitialized.joistReasons && document.getElementById('chart-joist-reasons').offsetParent) {
+    new Chart(document.getElementById('chart-joist-reasons'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Fraudulent', 'Debit Not Auth', 'Product Not Received', 'Product Unacceptable', 'Credit Not Processed', 'General', 'Duplicate'],
+        datasets: [{ data: [1416195, 366120, 354921, 120388, 60281, 54070, 19976],
+          backgroundColor: ['#F87171', '#FB923C', '#FBBF24', '#38BDF8', '#C084FC', '#4ADE80', '#64748B'],
+          borderWidth: 0 }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#a0a0b0', font: { size: 11 }, padding: 12 } } } }
+    });
+    chartsInitialized.joistReasons = true;
+  }
+
+  // Invoice Simple Reasons Doughnut
+  if (!chartsInitialized.isReasons && document.getElementById('chart-is-reasons').offsetParent) {
+    new Chart(document.getElementById('chart-is-reasons'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Product Not Received', 'Fraudulent', 'Product Unacceptable', 'Debit Not Auth', 'Credit Not Processed', 'Duplicate', 'General'],
+        datasets: [{ data: [250411, 240725, 134600, 90724, 41168, 36055, 1772],
+          backgroundColor: ['#FBBF24', '#F87171', '#38BDF8', '#FB923C', '#C084FC', '#64748B', '#4ADE80'],
+          borderWidth: 0 }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#a0a0b0', font: { size: 11 }, padding: 12 } } } }
+    });
+    chartsInitialized.isReasons = true;
+  }
+
+  // Growth Line Chart
+  if (!chartsInitialized.growth && document.getElementById('chart-growth').offsetParent) {
+    new Chart(document.getElementById('chart-growth'), {
+      type: 'line',
+      data: {
+        labels: months,
+        datasets: [
+          { label: 'DrChrono', data: [46986, 48860, 54073, 54531, 50267, 54019], borderColor: '#38BDF8', tension: 0.3, borderWidth: 2.5 },
+          { label: 'Service Fusion', data: [28219, 26739, 31277, 34745, 35045, 40433], borderColor: '#4ADE80', tension: 0.3, borderWidth: 2.5 },
+          { label: 'Invoice Simple', data: [13264, 14508, 17187, 19279, 21056, 23094], borderColor: '#FB923C', tension: 0.3, borderWidth: 2.5 },
+          { label: 'Joist', data: [7930, 7917, 10177, 11520, 13390, 15106], borderColor: '#F87171', tension: 0.3, borderWidth: 2.5 },
+          { label: 'PaySimple', data: [371, 384, 457, 507, 519, 533], borderColor: '#C084FC', tension: 0.3, borderWidth: 1.5, borderDash: [5,5] }
+        ]
+      },
+      options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, title: { display: true, text: 'Charges per Month', color: '#a0a0b0' },
+        ticks: { color: '#a0a0b0', callback: v => (v/1000).toFixed(0) + 'K' } } } }
+    });
+    chartsInitialized.growth = true;
+  }
+}
+
+// Initialize charts on first visible tab
+setTimeout(initCharts, 100);
+</script>
+</body>
+</html>
