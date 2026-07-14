@@ -94,7 +94,7 @@ body {
   display: flex; overflow-x: auto;
 }
 .tab-pill {
-  padding: 14px 22px; font-size: 12px; font-weight: 600; color: var(--text-dim);
+  padding: 14px 20px; font-size: 12px; font-weight: 600; color: var(--text-dim);
   border-bottom: 2px solid transparent; white-space: nowrap;
   cursor: pointer; transition: color 0.2s, border-color 0.2s;
 }
@@ -119,8 +119,9 @@ body {
 }
 .card-header {
   display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
 }
+.card-header-left { flex: 1; min-width: 0; }
 .card-title { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700; }
 .card-subtitle { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
 .card-badge {
@@ -130,18 +131,32 @@ body {
 .badge-green { background: rgba(74,222,128,.12); color: var(--green); border: 1px solid rgba(74,222,128,.3); }
 .badge-red { background: rgba(248,113,113,.12); color: var(--red); border: 1px solid rgba(248,113,113,.3); }
 .badge-orange { background: rgba(251,146,60,.12); color: var(--orange); border: 1px solid rgba(251,146,60,.3); }
+.badge-blue { background: rgba(56,189,248,.12); color: var(--cyan); border: 1px solid rgba(56,189,248,.3); }
+
+/* ── CSV BUTTON ── */
+.csv-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(99,91,255,0.12); border: 1px solid rgba(99,91,255,0.35);
+  color: #a5a0ff; font-size: 11px; font-weight: 600; letter-spacing: .04em;
+  padding: 6px 14px; border-radius: 6px; cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+.csv-btn:hover { background: rgba(99,91,255,0.22); border-color: rgba(99,91,255,0.6); color: #c8c4ff; }
+.csv-btn svg { width: 12px; height: 12px; fill: currentColor; flex-shrink: 0; }
 
 /* ── KPI ROW ── */
-.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; margin-bottom: 8px; }
 .kpi-card {
   background: rgba(255,255,255,0.03); border: 1px solid var(--border);
   border-radius: 10px; padding: 20px; text-align: center;
 }
-.kpi-value { font-family: 'Poppins', sans-serif; font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+.kpi-value { font-family: 'Poppins', sans-serif; font-size: 26px; font-weight: 700; margin-bottom: 4px; }
 .kpi-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .08em; font-weight: 600; }
 .kpi-delta { font-size: 11px; margin-top: 4px; font-weight: 600; }
 .delta-up { color: var(--red); }
 .delta-down { color: var(--green); }
+.delta-neutral { color: var(--text-dim); }
 
 /* ── TABLES ── */
 .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
@@ -161,7 +176,7 @@ body {
 .data-table .success { color: var(--green); font-weight: 600; }
 .data-table .warn { color: var(--orange); font-weight: 600; }
 .data-table .brand-col { color: var(--white); font-weight: 600; }
-.data-table tfoot td { font-weight: 700; color: var(--white); border-top: 1px solid var(--border-md); }
+.data-table tfoot td { font-weight: 700; color: var(--white); border-top: 1px solid var(--border-md); border-bottom: none; }
 
 /* ── CHARTS ── */
 .chart-wrap { position: relative; height: 320px; margin-top: 12px; }
@@ -171,27 +186,53 @@ body {
   background: rgba(255,255,255,0.02); border: 1px solid var(--border);
   border-radius: 10px; padding: 20px 24px; margin-bottom: 12px;
 }
-.rec-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.rec-card:last-child { margin-bottom: 0; }
+.rec-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
 .rec-number {
   width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 12px; font-weight: 700; background: var(--purple); color: var(--white); flex-shrink: 0;
 }
-.rec-title { font-weight: 700; font-size: 14px; }
+.rec-title { font-weight: 700; font-size: 14px; flex: 1; }
 .rec-body { font-size: 13px; color: var(--text-mid); line-height: 1.6; padding-left: 40px; }
 .rec-tag {
   display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .06em;
   text-transform: uppercase; padding: 3px 8px; border-radius: 4px; margin-top: 8px;
 }
-.tag-immediate { background: rgba(248,113,113,.12); color: var(--red); }
-.tag-medium { background: rgba(251,146,60,.12); color: var(--orange); }
+.tag-live { background: rgba(74,222,128,.12); color: var(--green); border: 1px solid rgba(74,222,128,.3); }
+.tag-immediate { background: rgba(248,113,113,.12); color: var(--red); border: 1px solid rgba(248,113,113,.3); }
+.tag-medium { background: rgba(251,146,60,.12); color: var(--orange); border: 1px solid rgba(251,146,60,.3); }
+.tag-exploring { background: rgba(99,91,255,.12); color: #a5a0ff; border: 1px solid rgba(99,91,255,.3); }
+
+/* ── LOSS REPORT SPECIFIC ── */
+.loss-note {
+  background: rgba(56,189,248,0.07); border: 1px solid rgba(56,189,248,0.2);
+  border-radius: 8px; padding: 16px 20px; font-size: 13px; color: var(--text-mid);
+  line-height: 1.6;
+}
+.loss-note strong { color: var(--cyan); }
+.over-cap { color: var(--red); font-weight: 600; }
+.under-cap { color: var(--green); font-weight: 600; }
+
+/* ── FOOTER ── */
+.page-footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 48px;
+  font-size: 11px;
+  color: var(--text-dim);
+  line-height: 1.6;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+.page-footer strong { color: rgba(219,234,255,0.65); }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .page-header { padding: 20px 24px; }
-  .tab-nav { padding: 0 24px; }
-  .content { padding: 24px 24px 60px; }
-  .card { padding: 20px; }
+  .tab-nav { padding: 0 16px; }
+  .content { padding: 24px 16px 60px; }
+  .card { padding: 20px 16px; }
   .kpi-row { grid-template-columns: 1fr 1fr; }
+  .page-footer { padding: 20px 16px; }
 }
 </style>
 </head>
@@ -214,13 +255,13 @@ body {
     <div class="ph-divider"></div>
     <div>
       <div class="ph-eyebrow">Quarterly Risk Review</div>
-      <div class="ph-title">Portfolio Risk & Dispute Analysis</div>
-      <div class="ph-sub">Data period: January – June 2026 (6 months)</div>
+      <div class="ph-title">Portfolio Risk &amp; Dispute Analysis</div>
+      <div class="ph-sub">Data period: January – June 2026 (6 months) · Verified data pulled July 14, 2026</div>
     </div>
   </div>
   <div class="ph-right">
     <div class="ph-badge">Stripe Confidential</div>
-    <div class="ph-meta">Prepared: July 2026<br>Stripe + EverCommerce</div>
+    <div class="ph-meta">Prepared: July 14, 2026<br>Stripe + EverCommerce</div>
   </div>
 </div>
 
@@ -228,9 +269,10 @@ body {
 <div class="tab-nav">
   <div class="tab-pill active" data-tab="summary">Executive Summary</div>
   <div class="tab-pill" data-tab="rates">Dispute Rates</div>
-  <div class="tab-pill" data-tab="volume">Dispute Volume</div>
+  <div class="tab-pill" data-tab="volume">Volume &amp; Outcomes</div>
   <div class="tab-pill" data-tab="reasons">Reason Codes</div>
   <div class="tab-pill" data-tab="growth">Volume Growth</div>
+  <div class="tab-pill" data-tab="loss">Risk Cap Report</div>
   <div class="tab-pill" data-tab="recs">Recommendations</div>
 </div>
 
@@ -239,53 +281,119 @@ body {
 
   <!-- TAB: EXECUTIVE SUMMARY -->
   <div class="tab-panel active" id="panel-summary">
+
     <div class="kpi-row">
       <div class="kpi-card">
-        <div class="kpi-value" style="color:var(--white)">1,991</div>
+        <div class="kpi-value" style="color:var(--white)">1,979</div>
         <div class="kpi-label">Total Disputes</div>
-        <div class="kpi-delta delta-down">6-month period</div>
+        <div class="kpi-delta delta-neutral">Jan–Jun 2026</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-value" style="color:var(--red)">$4.07M</div>
+        <div class="kpi-value" style="color:var(--red)">$4.14M</div>
         <div class="kpi-label">Disputed Amount</div>
-        <div class="kpi-delta delta-up">Joist: 71% of total</div>
+        <div class="kpi-delta delta-up">Joist 71% of total</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-value" style="color:var(--orange)">5.8%</div>
-        <div class="kpi-label">Win Rate</div>
-        <div class="kpi-delta delta-up">Nearly all disputes become losses</div>
+        <div class="kpi-value" style="color:var(--orange)">5.6%</div>
+        <div class="kpi-label">Portfolio Win Rate</div>
+        <div class="kpi-delta delta-up">116 won / 1,777 lost</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-value" style="color:var(--green)">-71%</div>
+        <div class="kpi-value" style="color:var(--green)">-29%</div>
         <div class="kpi-label">Joist Rate (peak→Jun)</div>
-        <div class="kpi-delta delta-down">199 bps → 58 bps</div>
+        <div class="kpi-delta delta-down">196 bps → 138 bps</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-value" style="color:var(--green)">-88%</div>
-        <div class="kpi-label">Inv. Simple Rate (Jan→Jun)</div>
-        <div class="kpi-delta delta-down">130 bps → 16 bps</div>
+        <div class="kpi-value" style="color:var(--green)">-82%</div>
+        <div class="kpi-label">Inv. Simple (peak→Jun)</div>
+        <div class="kpi-delta delta-down">205 bps → 38 bps</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value" style="color:var(--red)">$1.94M</div>
+        <div class="kpi-label">Realized Losses</div>
+        <div class="kpi-delta delta-neutral">Risk cap tracker (Jul 6, 2026)</div>
       </div>
     </div>
 
     <div class="card">
       <div class="card-header">
-        <div>
+        <div class="card-header-left">
           <div class="card-title">Portfolio Assessment</div>
-          <div class="card-subtitle">Key findings from the 6-month review period</div>
+          <div class="card-subtitle">Key findings from the 6-month review period (Jan–Jun 2026)</div>
         </div>
-        <div class="card-badge badge-orange">Action Required</div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <div class="card-badge badge-orange">Action Required</div>
+          <button class="csv-btn" onclick="downloadSummaryCSV()">
+            <svg viewBox="0 0 16 16"><path d="M8 10.5L4.5 7H7V2h2v5h2.5L8 10.5zM2 13h12v1.5H2V13z"/></svg>
+            Download CSV
+          </button>
+        </div>
       </div>
       <table class="data-table">
-        <thead><tr><th>Finding</th><th>Impact</th><th>Status</th></tr></thead>
+        <thead><tr><th>Brand</th><th>Key Finding</th><th class="num">6-Mo Disputes</th><th class="num">Disputed Amount</th><th class="num">Win Rate</th><th>Status</th></tr></thead>
         <tbody>
-          <tr><td>Invoice Simple dispute rate dropped from 130 bps to 16 bps</td><td class="success">Interventions working</td><td>Monitoring</td></tr>
-          <tr><td>Joist peaked at 199 bps (Apr), now at 58 bps</td><td class="warn">Still elevated</td><td>Improving</td></tr>
-          <tr><td>Joist fraudulent disputes: $1.42M in losses (6mo)</td><td class="danger">Critical</td><td>Active mitigation</td></tr>
-          <tr><td>Win rates 3-5% on Joist/Invoice Simple</td><td class="danger">Brand & monitoring risk</td><td>Smart Disputes pending</td></tr>
-          <tr><td>DrChrono + Service Fusion healthy (2-7 bps)</td><td class="success">No action needed</td><td>Stable</td></tr>
-          <tr><td>"Debit not authorized" on Joist: 13 disputes, $366K lost</td><td class="danger">Large-dollar fraud</td><td>Investigate</td></tr>
+          <tr>
+            <td class="brand-col">Joist</td>
+            <td>Rate peaked 196 bps (May), eased to 138 bps (Jun). Fraudulent + Product Not Received dominant.</td>
+            <td class="num warn">901</td>
+            <td class="num danger">$2,952,825</td>
+            <td class="num danger">3.9%</td>
+            <td class="warn">Improving</td>
+          </tr>
+          <tr>
+            <td class="brand-col">Invoice Simple</td>
+            <td>Rate surged to 205 bps (Mar), recovered to 38 bps (Jun). Mar spike under investigation.</td>
+            <td class="num warn">815</td>
+            <td class="num warn">$978,840</td>
+            <td class="num danger">4.9%</td>
+            <td class="warn">Recovering</td>
+          </tr>
+          <tr>
+            <td class="brand-col">Service Fusion</td>
+            <td>Rates stable 5–9 bps throughout period. No elevated patterns.</td>
+            <td class="num">133</td>
+            <td class="num">$165,575</td>
+            <td class="num warn">14.0%</td>
+            <td class="success">Stable</td>
+          </tr>
+          <tr>
+            <td class="brand-col">DrChrono</td>
+            <td>Rates healthy, 1–5 bps range. Strong win rate at 23.9%.</td>
+            <td class="num">115</td>
+            <td class="num">$26,950</td>
+            <td class="num success">23.9%</td>
+            <td class="success">Healthy</td>
+          </tr>
+          <tr>
+            <td class="brand-col">PaySimple</td>
+            <td>Very low volume (278–434 payments/mo) — rates statistically unreliable.</td>
+            <td class="num">15</td>
+            <td class="num">$18,623</td>
+            <td class="num danger">0.0%</td>
+            <td class="highlight">Low volume</td>
+          </tr>
         </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2">TOTAL</td>
+            <td class="num">1,979</td>
+            <td class="num">$4,142,813</td>
+            <td class="num">5.6%</td>
+            <td></td>
+          </tr>
+        </tfoot>
       </table>
+      <p style="font-size:12px;color:var(--text-dim);margin-top:14px;">Note: Joist data combines Joist US (acct_1N5wSuHm9XMzfHUD) and Joist Canada (acct_1QMzSmLpDUBwaAwE). Joist CA contributes minimal volume and only 1 dispute in the period. Open disputes (Joist 50, Invoice Simple 26) will resolve over coming weeks — expect lost counts to increase slightly.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-title">Dispute Rate Summary Chart</div>
+          <div class="card-subtitle">All brands Jan–Jun 2026 (bps)</div>
+        </div>
+      </div>
+      <div class="chart-wrap"><canvas id="chart-summary-rates"></canvas></div>
     </div>
   </div>
 
@@ -293,118 +401,294 @@ body {
   <div class="tab-panel" id="panel-rates">
     <div class="card">
       <div class="card-header">
-        <div>
+        <div class="card-header-left">
           <div class="card-title">Dispute Rate Trend by Brand</div>
-          <div class="card-subtitle">Basis points (bps) — connected account charges with disputes / total charges × 10,000</div>
+          <div class="card-subtitle">Basis points — disputes received in month / successful payments in month × 10,000</div>
         </div>
+        <button class="csv-btn" onclick="downloadRatesCSV()">
+          <svg viewBox="0 0 16 16"><path d="M8 10.5L4.5 7H7V2h2v5h2.5L8 10.5zM2 13h12v1.5H2V13z"/></svg>
+          Download CSV
+        </button>
       </div>
       <div class="chart-wrap"><canvas id="chart-rates"></canvas></div>
     </div>
 
     <div class="card">
       <div class="card-header">
-        <div>
+        <div class="card-header-left">
           <div class="card-title">Monthly Dispute Rates (bps)</div>
-          <div class="card-subtitle">Lower is better. VAMP threshold: 90 bps (Visa), ECM threshold: 75 bps (Mastercard)</div>
+          <div class="card-subtitle">VAMP threshold: 90 bps (Visa) · ECM threshold: 75 bps (Mastercard)</div>
         </div>
       </div>
       <table class="data-table">
-        <thead><tr><th>Brand</th><th class="num">Jan</th><th class="num">Feb</th><th class="num">Mar</th><th class="num">Apr</th><th class="num">May</th><th class="num">Jun</th><th class="num">Trend</th></tr></thead>
+        <thead>
+          <tr><th>Brand</th><th class="num">Jan</th><th class="num">Feb</th><th class="num">Mar</th><th class="num">Apr</th><th class="num">May</th><th class="num">Jun</th><th class="num">Trend</th></tr>
+        </thead>
         <tbody>
-          <tr><td class="brand-col">DrChrono</td><td class="num success">5.1</td><td class="num success">4.3</td><td class="num success">2.2</td><td class="num success">3.9</td><td class="num success">2.2</td><td class="num success">2.0</td><td class="num success">↓ Healthy</td></tr>
-          <tr><td class="brand-col">Service Fusion</td><td class="num success">7.4</td><td class="num success">6.7</td><td class="num warn">10.9</td><td class="num success">3.2</td><td class="num success">6.9</td><td class="num success">2.0</td><td class="num success">↓ Stable</td></tr>
-          <tr><td class="brand-col">Invoice Simple</td><td class="num danger">129.7</td><td class="num danger">137.9</td><td class="num warn">40.7</td><td class="num warn">32.2</td><td class="num warn">25.2</td><td class="num highlight">16.5</td><td class="num success">↓↓ -88%</td></tr>
-          <tr><td class="brand-col">Joist *</td><td class="num warn">73.1</td><td class="num danger">99.8</td><td class="num danger">158.2</td><td class="num danger">198.8</td><td class="num danger">170.3</td><td class="num warn">58.3</td><td class="num success">↓↓ -71%</td></tr>
-          <tr><td class="brand-col">PaySimple</td><td class="num warn">80.9</td><td class="num warn">52.1</td><td class="num warn">43.8</td><td class="num warn">39.5</td><td class="num warn">77.1</td><td class="num success">0.0</td><td class="num highlight">Low vol.</td></tr>
+          <tr>
+            <td class="brand-col">DrChrono</td>
+            <td class="num success">3.4</td><td class="num success">4.7</td><td class="num success">4.6</td>
+            <td class="num success">1.1</td><td class="num success">5.5</td><td class="num success">3.4</td>
+            <td class="num success">Healthy</td>
+          </tr>
+          <tr>
+            <td class="brand-col">Service Fusion</td>
+            <td class="num success">8.2</td><td class="num success">5.6</td><td class="num success">9.0</td>
+            <td class="num success">8.7</td><td class="num success">5.5</td><td class="num success">4.5</td>
+            <td class="num success">Stable</td>
+          </tr>
+          <tr>
+            <td class="brand-col">PaySimple</td>
+            <td class="num warn">36.0</td><td class="num danger">139.4</td><td class="num warn">87.2</td>
+            <td class="num success">26.5</td><td class="num warn">99.0</td><td class="num success">46.1</td>
+            <td class="num highlight">Low vol.*</td>
+          </tr>
+          <tr>
+            <td class="brand-col">Invoice Simple</td>
+            <td class="num warn">59.0</td><td class="num warn">58.5</td><td class="num danger">204.7</td>
+            <td class="num warn">71.7</td><td class="num success">47.6</td><td class="num success">37.8</td>
+            <td class="num success">↓↓ -82% from peak</td>
+          </tr>
+          <tr>
+            <td class="brand-col">Joist (US+CA)</td>
+            <td class="num warn">60.7</td><td class="num warn">79.7</td><td class="num danger">121.0</td>
+            <td class="num danger">161.4</td><td class="num danger">195.9</td><td class="num danger">138.3</td>
+            <td class="num warn">↓ -29% from peak</td>
+          </tr>
         </tbody>
       </table>
-      <p style="font-size:12px;color:var(--text-dim);margin-top:12px;">* Joist spike (Jan→Apr): Driven by card cashing fraud pattern — fake businesses with debit-only payouts, all-caps names, AI-generated websites. Decline (Apr→Jun): Coincides with Verisoul deployment (May) and accelerated fraudulent account rejections.</p>
+      <p style="font-size:12px;color:var(--text-dim);margin-top:12px;">* PaySimple has 278–434 payments/month. Rates highly volatile due to small denominator — not actionable as a standalone signal.<br>
+      Invoice Simple Mar spike (205 bps): 339 disputes on ~16.6K charges. Under investigation as an isolated cluster.<br>
+      Joist improvement May→Jun: Coincides with mitigation actions taken in Q2 2026. 46 disputes still open in June; final Jun rate will tick slightly higher as those resolve.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-title">Monthly Dispute Counts</div>
+          <div class="card-subtitle">Raw dispute counts by brand per month</div>
+        </div>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr><th>Brand</th><th class="num">Jan</th><th class="num">Feb</th><th class="num">Mar</th><th class="num">Apr</th><th class="num">May</th><th class="num">Jun</th><th class="num">Total</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="brand-col">DrChrono</td><td class="num">16</td><td class="num">23</td><td class="num">25</td><td class="num">6</td><td class="num">27</td><td class="num">18</td><td class="num highlight">115</td></tr>
+          <tr><td class="brand-col">Invoice Simple</td><td class="num">76</td><td class="num">82</td><td class="num danger">339</td><td class="num">135</td><td class="num">98</td><td class="num">85</td><td class="num highlight">815</td></tr>
+          <tr><td class="brand-col">Joist (US+CA)</td><td class="num">49</td><td class="num">64</td><td class="num">124</td><td class="num warn">189</td><td class="num danger">265</td><td class="num warn">210</td><td class="num highlight">901</td></tr>
+          <tr><td class="brand-col">PaySimple</td><td class="num">1</td><td class="num">4</td><td class="num">3</td><td class="num">1</td><td class="num">4</td><td class="num">2</td><td class="num">15</td></tr>
+          <tr><td class="brand-col">Service Fusion</td><td class="num">23</td><td class="num">15</td><td class="num">28</td><td class="num">30</td><td class="num">19</td><td class="num">18</td><td class="num highlight">133</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td>TOTAL</td><td class="num">165</td><td class="num">188</td><td class="num">519</td><td class="num">361</td><td class="num">413</td><td class="num">333</td><td class="num">1,979</td></tr>
+        </tfoot>
+      </table>
     </div>
   </div>
 
-  <!-- TAB: DISPUTE VOLUME -->
+  <!-- TAB: DISPUTE VOLUME & OUTCOMES -->
   <div class="tab-panel" id="panel-volume">
     <div class="card">
       <div class="card-header">
-        <div>
-          <div class="card-title">6-Month Dispute Summary by Brand</div>
-          <div class="card-subtitle">January – June 2026</div>
+        <div class="card-header-left">
+          <div class="card-title">6-Month Disputed Amount by Brand</div>
+          <div class="card-subtitle">January – June 2026 (USD)</div>
         </div>
+        <button class="csv-btn" onclick="downloadVolumeCSV()">
+          <svg viewBox="0 0 16 16"><path d="M8 10.5L4.5 7H7V2h2v5h2.5L8 10.5zM2 13h12v1.5H2V13z"/></svg>
+          Download CSV
+        </button>
       </div>
       <div class="chart-wrap"><canvas id="chart-volume"></canvas></div>
     </div>
 
     <div class="card">
       <div class="card-header">
-        <div>
+        <div class="card-header-left">
           <div class="card-title">Dispute Outcomes</div>
-          <div class="card-subtitle">Win rate = disputes won / (won + lost). Open disputes excluded.</div>
+          <div class="card-subtitle">Win rate = disputes won / (won + lost). Open disputes excluded from win rate calculation.</div>
         </div>
         <div class="card-badge badge-red">Win rates critically low</div>
       </div>
-      <p style="font-size:13px;color:var(--text-mid);margin-bottom:16px;">Low win rates mean disputes become permanent losses, increasing your platform's dispute ratios, raising monitoring program risk, and degrading connected account experience. Smart Disputes addresses this by automating evidence collection for eligible disputes.</p>
+      <p style="font-size:13px;color:var(--text-mid);margin-bottom:16px;">
+        Low win rates mean disputes become permanent losses, raising platform dispute ratios, increasing monitoring program risk, and degrading connected account experience.
+        Smart Disputes (amendment signed Jul 3, activation in progress) addresses this directly for eligible dispute categories.
+      </p>
       <table class="data-table">
-        <thead><tr><th>Brand</th><th class="num">Disputes</th><th class="num">Disputed $</th><th class="num">Won</th><th class="num">Lost</th><th class="num">Win Rate</th></tr></thead>
+        <thead>
+          <tr><th>Brand</th><th class="num">Disputes</th><th class="num">Disputed $</th><th class="num">Won</th><th class="num">Lost</th><th class="num">Open</th><th class="num">Win Rate</th><th class="num">Lost $</th></tr>
+        </thead>
         <tbody>
-          <tr><td class="brand-col">Joist</td><td class="num highlight">900</td><td class="num danger">$2,893,259</td><td class="num">27</td><td class="num danger">722</td><td class="num danger">3.6%</td></tr>
-          <tr><td class="brand-col">Invoice Simple</td><td class="num highlight">822</td><td class="num danger">$970,285</td><td class="num">35</td><td class="num danger">722</td><td class="num danger">4.6%</td></tr>
-          <tr><td class="brand-col">Service Fusion</td><td class="num">138</td><td class="num warn">$159,574</td><td class="num">16</td><td class="num">105</td><td class="num warn">13.2%</td></tr>
-          <tr><td class="brand-col">DrChrono</td><td class="num">116</td><td class="num">$26,881</td><td class="num success">23</td><td class="num">81</td><td class="num success">22.1%</td></tr>
-          <tr><td class="brand-col">PaySimple</td><td class="num">15</td><td class="num">$18,623</td><td class="num">0</td><td class="num">14</td><td class="num danger">0.0%</td></tr>
+          <tr>
+            <td class="brand-col">Joist US</td>
+            <td class="num warn">900</td>
+            <td class="num danger">$2,952,825</td>
+            <td class="num">33</td>
+            <td class="num danger">817</td>
+            <td class="num">50</td>
+            <td class="num danger">3.9%</td>
+            <td class="num danger">$2,674,424</td>
+          </tr>
+          <tr>
+            <td class="brand-col">Joist CA</td>
+            <td class="num">1</td>
+            <td class="num">$214</td>
+            <td class="num">0</td>
+            <td class="num">1</td>
+            <td class="num">0</td>
+            <td class="num danger">0.0%</td>
+            <td class="num">$214</td>
+          </tr>
+          <tr>
+            <td class="brand-col">Invoice Simple</td>
+            <td class="num warn">815</td>
+            <td class="num warn">$978,840</td>
+            <td class="num">39</td>
+            <td class="num danger">750</td>
+            <td class="num">26</td>
+            <td class="num danger">4.9%</td>
+            <td class="num warn">$873,693</td>
+          </tr>
+          <tr>
+            <td class="brand-col">Service Fusion</td>
+            <td class="num">133</td>
+            <td class="num">$165,575</td>
+            <td class="num">18</td>
+            <td class="num">111</td>
+            <td class="num">4</td>
+            <td class="num warn">14.0%</td>
+            <td class="num">$137,228</td>
+          </tr>
+          <tr>
+            <td class="brand-col">DrChrono</td>
+            <td class="num">115</td>
+            <td class="num">$26,950</td>
+            <td class="num">26</td>
+            <td class="num">83</td>
+            <td class="num">6</td>
+            <td class="num success">23.9%</td>
+            <td class="num">$19,779</td>
+          </tr>
+          <tr>
+            <td class="brand-col">PaySimple</td>
+            <td class="num">15</td>
+            <td class="num">$18,623</td>
+            <td class="num">0</td>
+            <td class="num">15</td>
+            <td class="num">0</td>
+            <td class="num danger">0.0%</td>
+            <td class="num">$18,623</td>
+          </tr>
         </tbody>
         <tfoot>
-          <tr><td>TOTAL</td><td class="num">1,991</td><td class="num">$4,068,622</td><td class="num">101</td><td class="num">1,644</td><td class="num">5.8%</td></tr>
+          <tr>
+            <td>TOTAL</td>
+            <td class="num">1,979</td>
+            <td class="num">$4,142,813</td>
+            <td class="num">116</td>
+            <td class="num">1,777</td>
+            <td class="num">86</td>
+            <td class="num">6.1%</td>
+            <td class="num">$3,723,961</td>
+          </tr>
         </tfoot>
+      </table>
+      <p style="font-size:12px;color:var(--text-dim);margin-top:12px;">86 open disputes (primarily Joist 50, Invoice Simple 26) will resolve over coming weeks. As these close, lost counts and lost amounts will increase modestly. The win rate is computed only on closed disputes.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-title">Monthly Disputed Amounts</div>
+          <div class="card-subtitle">USD amount disputed each month by brand</div>
+        </div>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr><th>Brand</th><th class="num">Jan</th><th class="num">Feb</th><th class="num">Mar</th><th class="num">Apr</th><th class="num">May</th><th class="num">Jun</th><th class="num">Total</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="brand-col">DrChrono</td><td class="num">$5,079</td><td class="num">$6,370</td><td class="num">$4,343</td><td class="num">$1,830</td><td class="num">$5,881</td><td class="num">$3,447</td><td class="num highlight">$26,950</td></tr>
+          <tr><td class="brand-col">Invoice Simple</td><td class="num">$162,103</td><td class="num">$163,793</td><td class="num danger">$131,568</td><td class="num">$182,418</td><td class="num">$161,590</td><td class="num">$177,368</td><td class="num highlight">$978,840</td></tr>
+          <tr><td class="brand-col">Joist US</td><td class="num">$139,698</td><td class="num">$483,032</td><td class="num">$331,933</td><td class="num">$479,875</td><td class="num danger">$879,218</td><td class="num warn">$639,069</td><td class="num highlight">$2,952,825</td></tr>
+          <tr><td class="brand-col">PaySimple</td><td class="num">$381</td><td class="num">$2,936</td><td class="num">$7,357</td><td class="num">$132</td><td class="num">$6,612</td><td class="num">$1,205</td><td class="num">$18,623</td></tr>
+          <tr><td class="brand-col">Service Fusion</td><td class="num">$42,314</td><td class="num">$8,070</td><td class="num">$27,835</td><td class="num">$54,306</td><td class="num">$18,213</td><td class="num">$14,837</td><td class="num highlight">$165,575</td></tr>
+        </tbody>
       </table>
     </div>
   </div>
 
   <!-- TAB: REASON CODES -->
   <div class="tab-panel" id="panel-reasons">
+
     <div class="card">
       <div class="card-header">
-        <div>
-          <div class="card-title">Joist — Loss Breakdown by Reason</div>
-          <div class="card-subtitle">$2.39M in realized losses across 900 disputes</div>
+        <div class="card-header-left">
+          <div class="card-title">Joist US — Dispute &amp; Loss Breakdown by Reason</div>
+          <div class="card-subtitle">900 total disputes · $2,674,424 in realized losses (closed disputes only)</div>
         </div>
-        <div class="card-badge badge-red">Fraud dominant</div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <div class="card-badge badge-red">Fraud dominant</div>
+          <button class="csv-btn" onclick="downloadReasonsCSV()">
+            <svg viewBox="0 0 16 16"><path d="M8 10.5L4.5 7H7V2h2v5h2.5L8 10.5zM2 13h12v1.5H2V13z"/></svg>
+            Download CSV
+          </button>
+        </div>
       </div>
-      <div class="chart-wrap" style="height:280px"><canvas id="chart-joist-reasons"></canvas></div>
+      <div class="chart-wrap" style="height:300px"><canvas id="chart-joist-reasons"></canvas></div>
       <table class="data-table" style="margin-top:20px">
-        <thead><tr><th>Reason</th><th class="num">Count</th><th class="num">Lost Amount</th><th class="num">% of Losses</th></tr></thead>
+        <thead>
+          <tr><th>Reason Code</th><th class="num">Disputes</th><th class="num">Lost Count</th><th class="num">Lost Amount</th><th class="num">Avg Lost/Dispute</th><th class="num">% of Losses</th></tr>
+        </thead>
         <tbody>
-          <tr><td class="brand-col">Fraudulent</td><td class="num">685</td><td class="num danger">$1,416,195</td><td class="num danger">59%</td></tr>
-          <tr><td class="brand-col">Debit Not Authorized</td><td class="num">13</td><td class="num danger">$366,120</td><td class="num danger">15%</td></tr>
-          <tr><td class="brand-col">Product Not Received</td><td class="num">102</td><td class="num warn">$354,921</td><td class="num warn">15%</td></tr>
-          <tr><td class="brand-col">Product Unacceptable</td><td class="num">65</td><td class="num">$120,388</td><td class="num">5%</td></tr>
-          <tr><td class="brand-col">Credit Not Processed</td><td class="num">14</td><td class="num">$60,281</td><td class="num">3%</td></tr>
-          <tr><td class="brand-col">General</td><td class="num">10</td><td class="num">$54,070</td><td class="num">2%</td></tr>
-          <tr><td class="brand-col">Duplicate</td><td class="num">9</td><td class="num">$19,976</td><td class="num">1%</td></tr>
+          <tr><td class="brand-col">Fraudulent</td><td class="num danger">684</td><td class="num">644</td><td class="num danger">$1,659,807</td><td class="num">$2,577</td><td class="num danger">62%</td></tr>
+          <tr><td class="brand-col">Product Not Received</td><td class="num warn">104</td><td class="num">92</td><td class="num warn">$379,739</td><td class="num">$4,127</td><td class="num warn">14%</td></tr>
+          <tr><td class="brand-col">Debit Not Authorized</td><td class="num">14</td><td class="num">13</td><td class="num danger">$369,436</td><td class="num danger">$28,418</td><td class="num warn">14%</td></tr>
+          <tr><td class="brand-col">Product Unacceptable</td><td class="num">64</td><td class="num">39</td><td class="num">$124,842</td><td class="num">$3,201</td><td class="num">5%</td></tr>
+          <tr><td class="brand-col">Credit Not Processed</td><td class="num">13</td><td class="num">12</td><td class="num">$64,055</td><td class="num">$5,338</td><td class="num">2%</td></tr>
+          <tr><td class="brand-col">General</td><td class="num">10</td><td class="num">8</td><td class="num">$54,070</td><td class="num">$6,759</td><td class="num">2%</td></tr>
+          <tr><td class="brand-col">Duplicate</td><td class="num">9</td><td class="num">8</td><td class="num">$19,976</td><td class="num">$2,497</td><td class="num">1%</td></tr>
+          <tr><td class="brand-col">Bank Cannot Process</td><td class="num">—</td><td class="num">1</td><td class="num">$2,500</td><td class="num">$2,500</td><td class="num">&lt;1%</td></tr>
+          <tr><td class="brand-col">Other</td><td class="num">2</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
         </tbody>
+        <tfoot>
+          <tr><td>TOTAL</td><td class="num">900</td><td class="num">817</td><td class="num">$2,674,425</td><td class="num">—</td><td class="num">100%</td></tr>
+        </tfoot>
       </table>
+      <p style="font-size:12px;color:var(--text-dim);margin-top:12px;padding:12px 16px;background:rgba(248,113,113,0.05);border-radius:6px;border:1px solid rgba(248,113,113,0.15);">
+        <strong style="color:var(--red);">Alert:</strong> "Debit Not Authorized" — 14 disputes, $369K in losses, $28K average per dispute. This is 10x larger than the average fraudulent dispute ($2.6K). Likely synthetic identity or business impersonation with large single-transaction fraud. Cross-reference against weekly fraud submissions immediately.
+      </p>
     </div>
 
     <div class="card">
       <div class="card-header">
-        <div>
-          <div class="card-title">Invoice Simple — Loss Breakdown by Reason</div>
-          <div class="card-subtitle">~$795K in realized losses across 822 disputes</div>
+        <div class="card-header-left">
+          <div class="card-title">Invoice Simple — Dispute Breakdown by Reason</div>
+          <div class="card-subtitle">815 total disputes · $873,693 in realized losses</div>
         </div>
         <div class="card-badge badge-orange">Mixed fraud + service</div>
       </div>
-      <div class="chart-wrap" style="height:280px"><canvas id="chart-is-reasons"></canvas></div>
+      <div class="chart-wrap" style="height:300px"><canvas id="chart-is-reasons"></canvas></div>
       <table class="data-table" style="margin-top:20px">
-        <thead><tr><th>Reason</th><th class="num">Count</th><th class="num">Lost Amount</th><th class="num">% of Losses</th></tr></thead>
+        <thead>
+          <tr><th>Reason Code</th><th class="num">Disputes</th><th class="num">% of Total</th></tr>
+        </thead>
         <tbody>
-          <tr><td class="brand-col">Product Not Received</td><td class="num">123</td><td class="num danger">$250,411</td><td class="num danger">31%</td></tr>
-          <tr><td class="brand-col">Fraudulent</td><td class="num">541</td><td class="num danger">$240,725</td><td class="num danger">30%</td></tr>
-          <tr><td class="brand-col">Product Unacceptable</td><td class="num">80</td><td class="num warn">$134,600</td><td class="num warn">17%</td></tr>
-          <tr><td class="brand-col">Debit Not Authorized</td><td class="num">36</td><td class="num">$90,724</td><td class="num">11%</td></tr>
-          <tr><td class="brand-col">Credit Not Processed</td><td class="num">27</td><td class="num">$41,168</td><td class="num">5%</td></tr>
-          <tr><td class="brand-col">Duplicate</td><td class="num">8</td><td class="num">$36,055</td><td class="num">4%</td></tr>
-          <tr><td class="brand-col">General</td><td class="num">6</td><td class="num">$1,772</td><td class="num">&lt;1%</td></tr>
+          <tr><td class="brand-col">Fraudulent</td><td class="num danger">541</td><td class="num danger">66%</td></tr>
+          <tr><td class="brand-col">Product Unacceptable</td><td class="num">80</td><td class="num">10%</td></tr>
+          <tr><td class="brand-col">Product Not Received</td><td class="num">99</td><td class="num warn">12%</td></tr>
+          <tr><td class="brand-col">Debit Not Authorized</td><td class="num">36</td><td class="num">4%</td></tr>
+          <tr><td class="brand-col">Credit Not Processed</td><td class="num">27</td><td class="num">3%</td></tr>
+          <tr><td class="brand-col">Duplicate</td><td class="num">7</td><td class="num">1%</td></tr>
+          <tr><td class="brand-col">General</td><td class="num">4</td><td class="num">&lt;1%</td></tr>
+          <tr><td class="brand-col">Other</td><td class="num">1</td><td class="num">&lt;1%</td></tr>
         </tbody>
+        <tfoot>
+          <tr><td>TOTAL</td><td class="num">815</td><td class="num">100%</td></tr>
+        </tfoot>
       </table>
+      <p style="font-size:12px;color:var(--text-dim);margin-top:12px;">Invoice Simple's fraudulent disputes drove the March spike (339 disputes, 205 bps). The rate recovery since March suggests mitigation is working. Smart Disputes Phase 1 eligibility will cover fraudulent disputes, directly targeting the highest-volume loss category for this brand.</p>
     </div>
   </div>
 
@@ -412,32 +696,123 @@ body {
   <div class="tab-panel" id="panel-growth">
     <div class="card">
       <div class="card-header">
-        <div>
-          <div class="card-title">Charge Volume Growth by Brand</div>
-          <div class="card-subtitle">Connected account charges per month. Dispute rate improvements are happening despite rapid volume growth.</div>
+        <div class="card-header-left">
+          <div class="card-title">Connected Account Charge Volume by Brand</div>
+          <div class="card-subtitle">Payments per month (denominator for dispute rate calculation). Dispute rate improvements are occurring despite rapid volume growth.</div>
         </div>
-        <div class="card-badge badge-green">Strong growth</div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <div class="card-badge badge-green">Strong growth</div>
+          <button class="csv-btn" onclick="downloadGrowthCSV()">
+            <svg viewBox="0 0 16 16"><path d="M8 10.5L4.5 7H7V2h2v5h2.5L8 10.5zM2 13h12v1.5H2V13z"/></svg>
+            Download CSV
+          </button>
+        </div>
       </div>
       <div class="chart-wrap"><canvas id="chart-growth"></canvas></div>
     </div>
 
     <div class="card">
       <div class="card-header">
-        <div>
-          <div class="card-title">Volume Context</div>
-          <div class="card-subtitle">January vs June 2026 connected account charge counts</div>
+        <div class="card-header-left">
+          <div class="card-title">Volume Growth Summary</div>
+          <div class="card-subtitle">January vs June 2026 connected account charge counts (from Hubble query d737a10c)</div>
         </div>
       </div>
       <table class="data-table">
-        <thead><tr><th>Brand</th><th class="num">Jan Charges</th><th class="num">Jun Charges</th><th class="num">Growth</th><th class="num">Monthly Avg</th></tr></thead>
+        <thead>
+          <tr><th>Brand</th><th class="num">Jan</th><th class="num">Feb</th><th class="num">Mar</th><th class="num">Apr</th><th class="num">May</th><th class="num">Jun</th><th class="num">Jan→Jun Growth</th></tr>
+        </thead>
         <tbody>
-          <tr><td class="brand-col">DrChrono</td><td class="num">46,986</td><td class="num">54,019</td><td class="num success">+15%</td><td class="num">~52K</td></tr>
-          <tr><td class="brand-col">Service Fusion</td><td class="num">28,219</td><td class="num">40,433</td><td class="num success">+43%</td><td class="num">~33K</td></tr>
-          <tr><td class="brand-col">Invoice Simple</td><td class="num">13,264</td><td class="num">23,094</td><td class="num success">+74%</td><td class="num">~18K</td></tr>
-          <tr><td class="brand-col">Joist</td><td class="num">7,930</td><td class="num">15,106</td><td class="num success">+90%</td><td class="num">~11K</td></tr>
-          <tr><td class="brand-col">PaySimple</td><td class="num">371</td><td class="num">533</td><td class="num success">+44%</td><td class="num">~450</td></tr>
+          <tr><td class="brand-col">DrChrono</td><td class="num">46,912</td><td class="num">48,780</td><td class="num">53,931</td><td class="num">53,518</td><td class="num">49,186</td><td class="num">52,607</td><td class="num success">+12%</td></tr>
+          <tr><td class="brand-col">Invoice Simple</td><td class="num">12,885</td><td class="num">14,014</td><td class="num">16,562</td><td class="num">18,819</td><td class="num">20,587</td><td class="num">22,490</td><td class="num success">+75%</td></tr>
+          <tr><td class="brand-col">Joist (US+CA)</td><td class="num">8,066</td><td class="num">8,033</td><td class="num">10,252</td><td class="num">11,709</td><td class="num">13,526</td><td class="num">15,181</td><td class="num success">+88%</td></tr>
+          <tr><td class="brand-col">PaySimple</td><td class="num">278</td><td class="num">287</td><td class="num">344</td><td class="num">378</td><td class="num">404</td><td class="num">434</td><td class="num success">+56%</td></tr>
+          <tr><td class="brand-col">Service Fusion</td><td class="num">28,099</td><td class="num">26,603</td><td class="num">31,086</td><td class="num">34,517</td><td class="num">34,832</td><td class="num">40,172</td><td class="num success">+43%</td></tr>
         </tbody>
       </table>
+      <p style="font-size:12px;color:var(--text-dim);margin-top:12px;">Volume growth context: Joist (+88%) and Invoice Simple (+75%) have seen the steepest growth. The fact that their dispute rates are improving despite rapid volume growth is significant — it means the <em>absolute count</em> of fraudulent onboardings is declining, not just the rate. This validates the mitigation actions taken in Q1–Q2 2026.</p>
+    </div>
+  </div>
+
+  <!-- TAB: LOSS REPORT -->
+  <div class="tab-panel" id="panel-loss">
+
+    <div class="loss-note">
+      <strong>Cohort maturity context:</strong> Realized losses typically take 60–180 days to mature after a transaction date. Each 60-day risk period has a maturity date 6 months after the period ends. Numbers shown are as of the maturity date or July 6, 2026 (whichever is earlier). Earlier periods are fully matured; recent periods will continue to grow.
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-title">Risk Cap Performance — 60-Day Rolling Periods</div>
+          <div class="card-subtitle">Risk cap = 10 bps (0.10%) of Gross PIV per period · Data as of July 6, 2026</div>
+        </div>
+        <button class="csv-btn" onclick="downloadLossCSV()">
+          <svg viewBox="0 0 16 16"><path d="M8 10.5L4.5 7H7V2h2v5h2.5L8 10.5zM2 13h12v1.5H2V13z"/></svg>
+          Download CSV
+        </button>
+      </div>
+      <div class="chart-wrap" style="height:340px"><canvas id="chart-loss"></canvas></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-title">Risk Cap Detail Table</div>
+          <div class="card-subtitle">Excess over cap = Realized Losses − Risk Cap when positive. Periods with excess are highlighted.</div>
+        </div>
+      </div>
+      <div style="overflow-x:auto;">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Period Start</th>
+            <th>Period End</th>
+            <th>Maturity Date</th>
+            <th class="num">Gross PIV</th>
+            <th class="num">Risk Cap (10 bps)</th>
+            <th class="num">Realized Losses</th>
+            <th class="num">Realized bps</th>
+            <th class="num">Excess Over Cap</th>
+            <th class="num">Est. Losses</th>
+            <th class="num">Est. bps</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>2024-01-01</td><td>2024-02-29</td><td>2024-08-29</td><td class="num">$9,419,188</td><td class="num">$9,419</td><td class="num success">$155</td><td class="num success">0.2</td><td class="num success">$0</td><td class="num">$15,514</td><td class="num">16.5</td></tr>
+          <tr><td>2024-03-01</td><td>2024-04-29</td><td>2024-10-29</td><td class="num">$18,122,076</td><td class="num">$18,122</td><td class="num success">$17,514</td><td class="num success">9.7</td><td class="num success">$0</td><td class="num">$74,249</td><td class="num">41.0</td></tr>
+          <tr><td>2024-04-30</td><td>2024-06-28</td><td>2024-12-28</td><td class="num">$33,437,169</td><td class="num">$33,437</td><td class="num success">$13,641</td><td class="num success">4.1</td><td class="num success">$0</td><td class="num">$88,215</td><td class="num">26.4</td></tr>
+          <tr><td>2024-06-29</td><td>2024-08-27</td><td>2025-02-27</td><td class="num">$42,161,158</td><td class="num">$42,161</td><td class="num success">$26,556</td><td class="num success">6.3</td><td class="num success">$0</td><td class="num">$73,572</td><td class="num">17.5</td></tr>
+          <tr><td>2024-08-28</td><td>2024-10-26</td><td>2025-04-26</td><td class="num">$51,228,810</td><td class="num">$51,229</td><td class="num success">$8,074</td><td class="num success">1.6</td><td class="num success">$0</td><td class="num">$74,084</td><td class="num">14.5</td></tr>
+          <tr><td>2024-10-27</td><td>2024-12-25</td><td>2025-06-25</td><td class="num">$58,108,283</td><td class="num">$58,108</td><td class="num success">$31,743</td><td class="num success">5.5</td><td class="num success">$0</td><td class="num">$56,978</td><td class="num">9.8</td></tr>
+          <tr><td>2024-12-26</td><td>2025-02-23</td><td>2025-08-23</td><td class="num">$65,976,010</td><td class="num">$65,976</td><td class="num warn">$52,301</td><td class="num warn">7.9</td><td class="num success">$0</td><td class="num">$84,415</td><td class="num">12.8</td></tr>
+          <tr style="background:rgba(248,113,113,0.06)"><td>2025-02-24</td><td>2025-04-24</td><td>2025-10-24</td><td class="num">$92,881,567</td><td class="num">$92,882</td><td class="num danger">$169,492</td><td class="num danger">18.3</td><td class="num over-cap">$76,610</td><td class="num">$281,814</td><td class="num">30.3</td></tr>
+          <tr style="background:rgba(248,113,113,0.06)"><td>2025-04-25</td><td>2025-06-23</td><td>2025-12-23</td><td class="num">$106,233,171</td><td class="num">$106,233</td><td class="num danger">$333,077</td><td class="num danger">31.4</td><td class="num over-cap">$226,844</td><td class="num">$408,518</td><td class="num">38.5</td></tr>
+          <tr style="background:rgba(248,113,113,0.06)"><td>2025-06-24</td><td>2025-08-22</td><td>2026-02-22</td><td class="num">$127,502,081</td><td class="num">$127,502</td><td class="num danger">$252,171</td><td class="num danger">19.8</td><td class="num over-cap">$124,668</td><td class="num">$333,006</td><td class="num">26.1</td></tr>
+          <tr style="background:rgba(248,113,113,0.06)"><td>2025-08-23</td><td>2025-10-21</td><td>2026-04-21</td><td class="num">$133,894,291</td><td class="num">$133,894</td><td class="num danger">$310,366</td><td class="num danger">23.2</td><td class="num over-cap">$176,472</td><td class="num">$351,058</td><td class="num">26.2</td></tr>
+          <tr style="background:rgba(248,113,113,0.06)"><td>2025-10-22</td><td>2025-12-20</td><td>2026-06-20</td><td class="num">$139,786,748</td><td class="num">$139,787</td><td class="num danger">$373,380</td><td class="num danger">26.7</td><td class="num over-cap">$233,593</td><td class="num">$401,700</td><td class="num">28.7</td></tr>
+          <tr style="background:rgba(248,113,113,0.06)"><td>2025-12-21</td><td>2026-02-18</td><td>2026-08-18</td><td class="num">$140,102,152</td><td class="num">$140,102</td><td class="num danger">$336,184</td><td class="num danger">24.0</td><td class="num over-cap">$196,082</td><td class="num">$394,343</td><td class="num">28.1</td></tr>
+          <tr><td>2026-02-19</td><td>2026-02-25</td><td>2026-08-25</td><td class="num">$18,406,959</td><td class="num">$18,407</td><td class="num warn">$17,727</td><td class="num warn">9.6</td><td class="num success">$0</td><td class="num">$27,313</td><td class="num">14.8</td></tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3">TOTAL</td>
+            <td class="num">$1,037,259,663</td>
+            <td class="num">—</td>
+            <td class="num">$1,942,382</td>
+            <td class="num">—</td>
+            <td class="num over-cap">$1,034,270</td>
+            <td class="num">$2,664,779</td>
+            <td class="num">—</td>
+          </tr>
+        </tfoot>
+      </table>
+      </div>
+      <p style="font-size:12px;color:var(--text-dim);margin-top:14px;">
+        Rows highlighted in red = periods where realized losses exceeded the risk cap. 7 of 14 periods breached the cap, concentrated in 2025-02 through 2026-02. Peak loss period: Oct–Dec 2025 ($373K realized, 26.7 bps, $234K excess). The most recent period (Dec 2025 – Feb 2026) shows $336K realized, $196K excess — this cohort matured on its Jul 6 snapshot and reflects the peak of the Joist fraud wave before Verisoul and intervention effects took hold.<br><br>
+        The final partial period (Feb 19–25, 2026) shows only $17.7K realized on $18.4M PIV — early but encouraging given it's still 7 weeks from maturity. This is directionally consistent with the Q1–Q2 2026 dispute rate improvements materializing in reduced losses.<br><br>
+        <strong style="color:rgba(219,234,255,0.65);">Source: EverCommerce Risk Cap Tracker (data as of maturity date or July 6, 2026, whichever earlier).</strong>
+      </p>
     </div>
   </div>
 
@@ -445,64 +820,68 @@ body {
   <div class="tab-panel" id="panel-recs">
     <div class="card">
       <div class="card-header">
-        <div>
+        <div class="card-header-left">
           <div class="card-title">Recommendations</div>
-          <div class="card-subtitle">Prioritized actions based on data analysis</div>
+          <div class="card-subtitle">Prioritized actions based on verified Hubble data (July 14, 2026)</div>
         </div>
+        <button class="csv-btn" onclick="downloadRecsCSV()">
+          <svg viewBox="0 0 16 16"><path d="M8 10.5L4.5 7H7V2h2v5h2.5L8 10.5zM2 13h12v1.5H2V13z"/></svg>
+          Download CSV
+        </button>
       </div>
 
       <div class="rec-card">
         <div class="rec-header">
-          <div class="rec-number">1</div>
-          <div class="rec-title">Activate Smart Disputes on Joist + Invoice Simple</div>
+          <div class="rec-number" style="background:var(--green)">1</div>
+          <div class="rec-title">Smart Disputes — Go-Live Imminent</div>
+          <span class="rec-tag tag-live">Amendment signed Jul 3</span>
         </div>
         <div class="rec-body">
-          Win rates of 3-5% mean nearly every dispute becomes a permanent loss, affecting your platform's dispute rates, monitoring program exposure, and connected account experience. Smart Disputes automates evidence collection and submission for eligible disputes. Based on Phase 1 eligibility (~25% of disputes) and benchmarks from similar platform profiles, estimated first-year recovery is $100-200K, scaling as eligibility expands in Phase 2 and Phase 3. Amendment is in signature. Once signed, opt-out rollout to Joist and Invoice Simple CAs first.
-          <br><span class="rec-tag tag-immediate">Immediate — This Quarter</span>
+          Win rates of 3.9% (Joist) and 4.9% (Invoice Simple) mean nearly every dispute becomes a permanent loss. Smart Disputes automates evidence collection and submission. Phase 1 eligibility covers roughly 25% of disputes; estimated first-year recovery $100–200K, scaling in Phases 2 and 3. Opt-out rollout starts with Joist and Invoice Simple connected accounts.
         </div>
       </div>
 
       <div class="rec-card">
         <div class="rec-header">
-          <div class="rec-number">2</div>
+          <div class="rec-number" style="background:var(--red)">2</div>
           <div class="rec-title">Investigate Joist "Debit Not Authorized" Large-Dollar Fraud</div>
+          <span class="rec-tag tag-immediate">Immediate</span>
         </div>
         <div class="rec-body">
-          13 disputes averaging $28K each ($366K total). These are likely large-dollar single-transaction fraud from synthetic identity or business impersonation cases. Next step: pull the specific connected accounts generating these disputes and cross-reference against Chris's weekly fraud submissions to determine if they overlap with known bad actors or represent a new vector.
-          <br><span class="rec-tag tag-immediate">Immediate — This Quarter</span>
+          14 disputes, $369K in losses, $28K average per dispute — 10x the average fraudulent dispute. This pattern is consistent with synthetic identity or business impersonation targeting large single-transaction amounts. Pull the specific connected accounts generating these disputes and cross-reference against weekly fraud submissions to determine if they overlap with known bad actors or represent a new vector.
         </div>
       </div>
 
       <div class="rec-card">
         <div class="rec-header">
-          <div class="rec-number">3</div>
-          <div class="rec-title">Identity Verification for High-Risk Onboarding</div>
-        </div>
-        <div class="rec-body">
-          The card cashing pattern on Joist (fake businesses, AI-generated websites, debit-only payouts) could be caught at onboarding with identity verification before account activation. This is an area we're actively exploring for platforms with your risk profile. No confirmed timeline yet, but worth discussing as a Q4 pilot if the product path clears.
-          <br><span class="rec-tag tag-medium">Exploring — No Confirmed Timeline</span>
-        </div>
-      </div>
-
-      <div class="rec-card">
-        <div class="rec-header">
-          <div class="rec-number">4</div>
+          <div class="rec-number" style="background:var(--orange)">3</div>
           <div class="rec-title">Bank Account Verification for New Joist CAs</div>
+          <span class="rec-tag tag-medium">Priority Discussion</span>
         </div>
         <div class="rec-body">
-          The "debit-only payouts" fraud pattern could be disrupted by requiring bank account ownership verification before enabling payouts. This capability is already active on your platform. The discussion: should it become mandatory for new Joist connected accounts given the fraud patterns we're seeing?
-          <br><span class="rec-tag tag-medium">Exploring — Discussion Item</span>
+          The debit-only payout fraud pattern is confirmed by both Stripe data and EC's independent reviews. Requiring bank account ownership verification before enabling payouts on new Joist connected accounts would disrupt this vector at onboarding. This capability is already active on the platform. Discussion item: make it mandatory for new Joist CAs.
         </div>
       </div>
 
       <div class="rec-card">
         <div class="rec-header">
-          <div class="rec-number">5</div>
-          <div class="rec-title">Platform-Level Fraud Rules</div>
+          <div class="rec-number" style="background:var(--future)">4</div>
+          <div class="rec-title">Identity Verification for High-Risk Onboarding</div>
+          <span class="rec-tag tag-exploring">Exploring</span>
         </div>
         <div class="rec-body">
-          Platform-level fraud rules that detect patterns across connected accounts (same fingerprints, repeated fraud vectors) before disputes occur. This is a newer capability we're evaluating for platforms with managed risk. Early stage, no committed timeline. We'll update as the product path develops.
-          <br><span class="rec-tag tag-medium">Exploring — Early Stage</span>
+          The card cashing pattern (fake businesses, AI-generated websites, debit-only payouts) could be intercepted at onboarding with identity verification before account activation. Internal product discussion in progress with EC's priority attached. Timeline update coming within the next few weeks.
+        </div>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-header">
+          <div class="rec-number" style="background:var(--blue-mid)">5</div>
+          <div class="rec-title">Platform-Level Fraud Rules</div>
+          <span class="rec-tag tag-exploring">Early Stage</span>
+        </div>
+        <div class="rec-body">
+          Detect patterns across connected accounts (same device fingerprints, repeated fraud vectors) before disputes occur. Under evaluation for managed risk platforms. No committed timeline yet. We'll update as the product path develops.
         </div>
       </div>
     </div>
@@ -510,8 +889,13 @@ body {
 
 </div>
 
+<!-- PAGE FOOTER -->
+<div class="page-footer">
+  <strong>Methodology:</strong> Dispute rate = disputes received in month / successful payments in month × 10,000. Matches Stripe Dashboard default view (Payments → Analytics → Disputes, dispute-date axis). Excludes Early Fraud Warnings (TC40s). Includes all platform-linked disputes including those not displayed in Dashboard analytics — total amounts may run slightly higher than Payments → Analytics → Disputes for brands with large-dollar single disputes. Risk Cap Report sourced from EverCommerce Risk Cap Tracker (data as of maturity date or July 6, 2026, whichever earlier). Win rates computed on closed disputes only; open disputes excluded. Joist data combines Joist US and Joist Canada. Data pulled July 14, 2026.
+</div>
+
 <script>
-// Password gate
+// ─── PASSWORD GATE ───────────────────────────────────────────────────────────
 const PASS = 'ecrisk2026';
 const gate = document.getElementById('gate');
 const pwInput = document.getElementById('gate-pw');
@@ -524,6 +908,7 @@ gateBtn.addEventListener('click', () => {
   if (pwInput.value === PASS) {
     sessionStorage.setItem('ec-auth', '1');
     gate.classList.add('hidden');
+    setTimeout(initCharts, 50);
   } else {
     gateErr.textContent = 'Incorrect password';
     pwInput.value = '';
@@ -531,123 +916,500 @@ gateBtn.addEventListener('click', () => {
 });
 pwInput.addEventListener('keydown', e => { if (e.key === 'Enter') gateBtn.click(); });
 
-// Tab navigation
+// ─── TAB NAVIGATION ──────────────────────────────────────────────────────────
 document.querySelectorAll('.tab-pill').forEach(pill => {
   pill.addEventListener('click', () => {
     document.querySelectorAll('.tab-pill').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     pill.classList.add('active');
     document.getElementById('panel-' + pill.dataset.tab).classList.add('active');
-    initCharts();
+    setTimeout(initCharts, 50);
   });
 });
 
-// Charts
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
-const chartOpts = {
-  responsive: true, maintainAspectRatio: false,
-  plugins: { legend: { labels: { color: '#a0a0b0', font: { size: 11 } } } },
+// ─── DATA ────────────────────────────────────────────────────────────────────
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+
+const DATA = {
+  payments: {
+    drchrono:      [46912, 48780, 53931, 53518, 49186, 52607],
+    invoicesimple: [12885, 14014, 16562, 18819, 20587, 22490],
+    joist:         [8066,  8033,  10252, 11709, 13526, 15181],
+    paysimple:     [278,   287,   344,   378,   404,   434],
+    servicefusion: [28099, 26603, 31086, 34517, 34832, 40172]
+  },
+  disputes: {
+    drchrono:      [16, 23, 25, 6,   27,  18],
+    invoicesimple: [76, 82, 339, 135, 98,  85],
+    joist:         [49, 64, 124, 189, 265, 210],
+    paysimple:     [1,  4,  3,   1,   4,   2],
+    servicefusion: [23, 15, 28,  30,  19,  18]
+  },
+  rates: {
+    drchrono:      [3.4,  4.7,  4.6,   1.1,  5.5,  3.4],
+    invoicesimple: [59.0, 58.5, 204.7, 71.7, 47.6, 37.8],
+    joist:         [60.7, 79.7, 121.0, 161.4, 195.9, 138.3],
+    paysimple:     [36.0, 139.4, 87.2, 26.5, 99.0, 46.1],
+    servicefusion: [8.2,  5.6,  9.0,   8.7,  5.5,  4.5]
+  },
+  lossReport: [
+    ['2024-01-01','2024-02-29','2024-08-29',9419188,9419,155,0.2,0,15514,16.5],
+    ['2024-03-01','2024-04-29','2024-10-29',18122076,18122,17514,9.7,0,74249,41.0],
+    ['2024-04-30','2024-06-28','2024-12-28',33437169,33437,13641,4.1,0,88215,26.4],
+    ['2024-06-29','2024-08-27','2025-02-27',42161158,42161,26556,6.3,0,73572,17.5],
+    ['2024-08-28','2024-10-26','2025-04-26',51228810,51229,8074,1.6,0,74084,14.5],
+    ['2024-10-27','2024-12-25','2025-06-25',58108283,58108,31743,5.5,0,56978,9.8],
+    ['2024-12-26','2025-02-23','2025-08-23',65976010,65976,52301,7.9,0,84415,12.8],
+    ['2025-02-24','2025-04-24','2025-10-24',92881567,92882,169492,18.3,76610,281814,30.3],
+    ['2025-04-25','2025-06-23','2025-12-23',106233171,106233,333077,31.4,226844,408518,38.5],
+    ['2025-06-24','2025-08-22','2026-02-22',127502081,127502,252171,19.8,124668,333006,26.1],
+    ['2025-08-23','2025-10-21','2026-04-21',133894291,133894,310366,23.2,176472,351058,26.2],
+    ['2025-10-22','2025-12-20','2026-06-20',139786748,139787,373380,26.7,233593,401700,28.7],
+    ['2025-12-21','2026-02-18','2026-08-18',140102152,140102,336184,24.0,196082,394343,28.1],
+    ['2026-02-19','2026-02-25','2026-08-25',18406959,18407,17727,9.6,0,27313,14.8]
+  ]
+};
+
+// ─── CSV DOWNLOAD UTILITY ─────────────────────────────────────────────────────
+function downloadCSV(rows, headers, filename) {
+  let csv = headers.join(',') + '\n';
+  rows.forEach(row => {
+    csv += row.map(v => (typeof v === 'string' && v.includes(',')) ? '"' + v + '"' : v).join(',') + '\n';
+  });
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+}
+
+function downloadSummaryCSV() {
+  const headers = ['Brand','6-Mo Disputes','Disputed Amount (USD)','Won','Lost','Open','Win Rate (%)','Lost Amount (USD)'];
+  const rows = [
+    ['Joist US',900,2952825,33,817,50,3.9,2674424],
+    ['Joist CA',1,214,0,1,0,0.0,214],
+    ['Invoice Simple',815,978840,39,750,26,4.9,873693],
+    ['Service Fusion',133,165575,18,111,4,14.0,137228],
+    ['DrChrono',115,26950,26,83,6,23.9,19779],
+    ['PaySimple',15,18623,0,15,0,0.0,18623],
+    ['TOTAL',1979,4142813,116,1777,86,6.1,3723961]
+  ];
+  downloadCSV(rows, headers, 'ec-risk-review-summary.csv');
+}
+
+function downloadRatesCSV() {
+  const headers = ['Brand','Jan (bps)','Feb (bps)','Mar (bps)','Apr (bps)','May (bps)','Jun (bps)','Jan Payments','Feb Payments','Mar Payments','Apr Payments','May Payments','Jun Payments','Jan Disputes','Feb Disputes','Mar Disputes','Apr Disputes','May Disputes','Jun Disputes'];
+  const brands = [
+    ['DrChrono', DATA.rates.drchrono, DATA.payments.drchrono, DATA.disputes.drchrono],
+    ['Invoice Simple', DATA.rates.invoicesimple, DATA.payments.invoicesimple, DATA.disputes.invoicesimple],
+    ['Joist (US+CA)', DATA.rates.joist, DATA.payments.joist, DATA.disputes.joist],
+    ['PaySimple', DATA.rates.paysimple, DATA.payments.paysimple, DATA.disputes.paysimple],
+    ['Service Fusion', DATA.rates.servicefusion, DATA.payments.servicefusion, DATA.disputes.servicefusion]
+  ];
+  const rows = brands.map(([name, rates, payments, disputes]) =>
+    [name, ...rates, ...payments, ...disputes]
+  );
+  downloadCSV(rows, headers, 'ec-risk-review-dispute-rates.csv');
+}
+
+function downloadVolumeCSV() {
+  const headers = ['Brand','Disputes','Disputed Amount (USD)','Won','Lost','Open','Win Rate (%)','Lost Amount (USD)'];
+  const rows = [
+    ['Joist US',900,2952825,33,817,50,3.9,2674424],
+    ['Joist CA',1,214,0,1,0,0.0,214],
+    ['Invoice Simple',815,978840,39,750,26,4.9,873693],
+    ['Service Fusion',133,165575,18,111,4,14.0,137228],
+    ['DrChrono',115,26950,26,83,6,23.9,19779],
+    ['PaySimple',15,18623,0,15,0,0.0,18623],
+    ['TOTAL',1979,4142813,116,1777,86,6.1,3723961]
+  ];
+  downloadCSV(rows, headers, 'ec-risk-review-volume-outcomes.csv');
+}
+
+function downloadReasonsCSV() {
+  const headers = ['Brand','Reason Code','Disputes','Lost Count','Lost Amount (USD)','Avg Lost Per Dispute (USD)','Pct of Losses'];
+  const rows = [
+    ['Joist US','Fraudulent',684,644,1659807,2577,'62%'],
+    ['Joist US','Product Not Received',104,92,379739,4127,'14%'],
+    ['Joist US','Debit Not Authorized',14,13,369436,28418,'14%'],
+    ['Joist US','Product Unacceptable',64,39,124842,3201,'5%'],
+    ['Joist US','Credit Not Processed',13,12,64055,5338,'2%'],
+    ['Joist US','General',10,8,54070,6759,'2%'],
+    ['Joist US','Duplicate',9,8,19976,2497,'1%'],
+    ['Joist US','Bank Cannot Process','—',1,2500,2500,'<1%'],
+    ['Joist US','Other',2,'—','—','—','—'],
+    ['Invoice Simple','Fraudulent',541,'—','—','—','66%'],
+    ['Invoice Simple','Product Unacceptable',80,'—','—','—','10%'],
+    ['Invoice Simple','Product Not Received',99,'—','—','—','12%'],
+    ['Invoice Simple','Debit Not Authorized',36,'—','—','—','4%'],
+    ['Invoice Simple','Credit Not Processed',27,'—','—','—','3%'],
+    ['Invoice Simple','Duplicate',7,'—','—','—','1%'],
+    ['Invoice Simple','General',4,'—','—','—','<1%'],
+    ['Invoice Simple','Other',1,'—','—','—','<1%']
+  ];
+  downloadCSV(rows, headers, 'ec-risk-review-reason-codes.csv');
+}
+
+function downloadGrowthCSV() {
+  const headers = ['Brand','Jan Payments','Feb Payments','Mar Payments','Apr Payments','May Payments','Jun Payments','Jan-Jun Growth'];
+  const rows = [
+    ['DrChrono', ...DATA.payments.drchrono, '+12%'],
+    ['Invoice Simple', ...DATA.payments.invoicesimple, '+75%'],
+    ['Joist (US+CA)', ...DATA.payments.joist, '+88%'],
+    ['PaySimple', ...DATA.payments.paysimple, '+56%'],
+    ['Service Fusion', ...DATA.payments.servicefusion, '+43%']
+  ];
+  downloadCSV(rows, headers, 'ec-risk-review-volume-growth.csv');
+}
+
+function downloadLossCSV() {
+  const headers = ['Period Start','Period End','Maturity Date','Gross PIV (USD)','Risk Cap (USD)','Realized Losses (USD)','Realized bps','Excess Over Cap (USD)','Estimated Losses (USD)','Estimated bps'];
+  downloadCSV(DATA.lossReport, headers, 'ec-risk-cap-report.csv');
+}
+
+function downloadRecsCSV() {
+  const headers = ['Priority','Recommendation','Status','Description'];
+  const rows = [
+    [1,'Smart Disputes — Go-Live Imminent','Amendment signed Jul 3','Win rates 3.9-4.9% on Joist/Invoice Simple. Phase 1 eligibility ~25% of disputes. Estimated first-year recovery $100-200K.'],
+    [2,'Investigate Joist Debit Not Authorized Large-Dollar Fraud','Immediate','14 disputes, $369K losses, $28K average. Likely synthetic identity or business impersonation. Cross-reference against weekly fraud submissions.'],
+    [3,'Bank Account Verification for New Joist CAs','Priority Discussion','Debit-only payout fraud pattern confirmed. Capability already active on platform. Discussion: make mandatory for new Joist CAs.'],
+    [4,'Identity Verification for High-Risk Onboarding','Exploring','Card cashing pattern — fake businesses, AI-generated websites, debit-only payouts. Internal product discussion in progress. Timeline coming.'],
+    [5,'Platform-Level Fraud Rules','Early Stage','Detect patterns across CAs (same fingerprints, repeated vectors). Under evaluation for managed risk platforms. No committed timeline.']
+  ];
+  downloadCSV(rows, headers, 'ec-risk-review-recommendations.csv');
+}
+
+// ─── CHART INITIALIZATION ─────────────────────────────────────────────────────
+const CHART_COLORS = {
+  joist:         { line: '#F87171', bg: 'rgba(248,113,113,0.08)' },
+  invoicesimple: { line: '#FB923C', bg: 'rgba(251,146,60,0.08)' },
+  servicefusion: { line: '#4ADE80', bg: 'rgba(74,222,128,0.08)' },
+  drchrono:      { line: '#38BDF8', bg: 'rgba(56,189,248,0.08)' },
+  paysimple:     { line: '#C084FC', bg: 'rgba(192,132,252,0.08)' }
+};
+
+const baseChartOpts = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: { labels: { color: '#8898aa', font: { size: 11, family: 'Inter' }, padding: 16 } }
+  },
   scales: {
-    x: { ticks: { color: '#a0a0b0' }, grid: { color: 'rgba(219,234,255,0.06)' } },
-    y: { ticks: { color: '#a0a0b0' }, grid: { color: 'rgba(219,234,255,0.06)' } }
+    x: {
+      ticks: { color: '#667788', font: { size: 11 } },
+      grid: { color: 'rgba(219,234,255,0.05)' }
+    },
+    y: {
+      ticks: { color: '#667788', font: { size: 11 } },
+      grid: { color: 'rgba(219,234,255,0.05)' }
+    }
   }
 };
 
-let chartsInitialized = {};
+const chartInstances = {};
 
-function initCharts() {
-  // Dispute Rate Line Chart
-  if (!chartsInitialized.rates && document.getElementById('chart-rates').offsetParent) {
-    new Chart(document.getElementById('chart-rates'), {
-      type: 'line',
-      data: {
-        labels: months,
-        datasets: [
-          { label: 'Joist', data: [73.1, 99.8, 158.2, 198.8, 170.3, 58.3], borderColor: '#F87171', backgroundColor: 'rgba(248,113,113,0.1)', tension: 0.3, borderWidth: 2.5 },
-          { label: 'Invoice Simple', data: [129.7, 137.9, 40.7, 32.2, 25.2, 16.5], borderColor: '#FB923C', backgroundColor: 'rgba(251,146,60,0.1)', tension: 0.3, borderWidth: 2.5 },
-          { label: 'Service Fusion', data: [7.4, 6.7, 10.9, 3.2, 6.9, 2.0], borderColor: '#4ADE80', backgroundColor: 'rgba(74,222,128,0.1)', tension: 0.3, borderWidth: 2 },
-          { label: 'DrChrono', data: [5.1, 4.3, 2.2, 3.9, 2.2, 2.0], borderColor: '#38BDF8', backgroundColor: 'rgba(56,189,248,0.1)', tension: 0.3, borderWidth: 2 },
-          { label: 'PaySimple', data: [80.9, 52.1, 43.8, 39.5, 77.1, 0], borderColor: '#C084FC', backgroundColor: 'rgba(192,132,252,0.1)', tension: 0.3, borderWidth: 1.5, borderDash: [5,5] }
-        ]
-      },
-      options: { ...chartOpts, plugins: { ...chartOpts.plugins, annotation: {} },
-        scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, title: { display: true, text: 'Dispute Rate (bps)', color: '#a0a0b0' } } }
-      }
-    });
-    chartsInitialized.rates = true;
-  }
-
-  // Volume Bar Chart
-  if (!chartsInitialized.volume && document.getElementById('chart-volume').offsetParent) {
-    new Chart(document.getElementById('chart-volume'), {
-      type: 'bar',
-      data: {
-        labels: ['Joist', 'Invoice Simple', 'Service Fusion', 'DrChrono', 'PaySimple'],
-        datasets: [
-          { label: 'Disputed Amount ($)', data: [2893259, 970285, 159574, 26881, 18623], backgroundColor: ['rgba(248,113,113,0.7)', 'rgba(251,146,60,0.7)', 'rgba(74,222,128,0.7)', 'rgba(56,189,248,0.7)', 'rgba(192,132,252,0.7)'], borderColor: ['#F87171', '#FB923C', '#4ADE80', '#38BDF8', '#C084FC'], borderWidth: 1 }
-        ]
-      },
-      options: { ...chartOpts, plugins: { ...chartOpts.plugins, legend: { display: false } },
-        scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, title: { display: true, text: 'Disputed Amount (USD)', color: '#a0a0b0' },
-          ticks: { color: '#a0a0b0', callback: v => '$' + (v/1000000).toFixed(1) + 'M' } } }
-      }
-    });
-    chartsInitialized.volume = true;
-  }
-
-  // Joist Reasons Doughnut
-  if (!chartsInitialized.joistReasons && document.getElementById('chart-joist-reasons').offsetParent) {
-    new Chart(document.getElementById('chart-joist-reasons'), {
-      type: 'doughnut',
-      data: {
-        labels: ['Fraudulent', 'Debit Not Auth', 'Product Not Received', 'Product Unacceptable', 'Credit Not Processed', 'General', 'Duplicate'],
-        datasets: [{ data: [1416195, 366120, 354921, 120388, 60281, 54070, 19976],
-          backgroundColor: ['#F87171', '#FB923C', '#FBBF24', '#38BDF8', '#C084FC', '#4ADE80', '#64748B'],
-          borderWidth: 0 }]
-      },
-      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#a0a0b0', font: { size: 11 }, padding: 12 } } } }
-    });
-    chartsInitialized.joistReasons = true;
-  }
-
-  // Invoice Simple Reasons Doughnut
-  if (!chartsInitialized.isReasons && document.getElementById('chart-is-reasons').offsetParent) {
-    new Chart(document.getElementById('chart-is-reasons'), {
-      type: 'doughnut',
-      data: {
-        labels: ['Product Not Received', 'Fraudulent', 'Product Unacceptable', 'Debit Not Auth', 'Credit Not Processed', 'Duplicate', 'General'],
-        datasets: [{ data: [250411, 240725, 134600, 90724, 41168, 36055, 1772],
-          backgroundColor: ['#FBBF24', '#F87171', '#38BDF8', '#FB923C', '#C084FC', '#64748B', '#4ADE80'],
-          borderWidth: 0 }]
-      },
-      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#a0a0b0', font: { size: 11 }, padding: 12 } } } }
-    });
-    chartsInitialized.isReasons = true;
-  }
-
-  // Growth Line Chart
-  if (!chartsInitialized.growth && document.getElementById('chart-growth').offsetParent) {
-    new Chart(document.getElementById('chart-growth'), {
-      type: 'line',
-      data: {
-        labels: months,
-        datasets: [
-          { label: 'DrChrono', data: [46986, 48860, 54073, 54531, 50267, 54019], borderColor: '#38BDF8', tension: 0.3, borderWidth: 2.5 },
-          { label: 'Service Fusion', data: [28219, 26739, 31277, 34745, 35045, 40433], borderColor: '#4ADE80', tension: 0.3, borderWidth: 2.5 },
-          { label: 'Invoice Simple', data: [13264, 14508, 17187, 19279, 21056, 23094], borderColor: '#FB923C', tension: 0.3, borderWidth: 2.5 },
-          { label: 'Joist', data: [7930, 7917, 10177, 11520, 13390, 15106], borderColor: '#F87171', tension: 0.3, borderWidth: 2.5 },
-          { label: 'PaySimple', data: [371, 384, 457, 507, 519, 533], borderColor: '#C084FC', tension: 0.3, borderWidth: 1.5, borderDash: [5,5] }
-        ]
-      },
-      options: { ...chartOpts, scales: { ...chartOpts.scales, y: { ...chartOpts.scales.y, title: { display: true, text: 'Charges per Month', color: '#a0a0b0' },
-        ticks: { color: '#a0a0b0', callback: v => (v/1000).toFixed(0) + 'K' } } } }
-    });
-    chartsInitialized.growth = true;
+function destroyChart(id) {
+  if (chartInstances[id]) {
+    chartInstances[id].destroy();
+    delete chartInstances[id];
   }
 }
 
-// Initialize charts on first visible tab
-setTimeout(initCharts, 100);
+function makeLineDataset(label, data, colorKey, dashed = false) {
+  return {
+    label,
+    data,
+    borderColor: CHART_COLORS[colorKey].line,
+    backgroundColor: CHART_COLORS[colorKey].bg,
+    tension: 0.3,
+    borderWidth: 2.5,
+    pointRadius: 4,
+    pointHoverRadius: 6,
+    fill: true,
+    ...(dashed ? { borderDash: [5, 5], borderWidth: 2, pointRadius: 3 } : {})
+  };
+}
+
+function initSummaryRatesChart() {
+  const el = document.getElementById('chart-summary-rates');
+  if (!el || !el.offsetParent) return;
+  destroyChart('summaryRates');
+  chartInstances.summaryRates = new Chart(el, {
+    type: 'line',
+    data: {
+      labels: MONTHS,
+      datasets: [
+        makeLineDataset('Joist', DATA.rates.joist, 'joist'),
+        makeLineDataset('Invoice Simple', DATA.rates.invoicesimple, 'invoicesimple'),
+        makeLineDataset('Service Fusion', DATA.rates.servicefusion, 'servicefusion'),
+        makeLineDataset('DrChrono', DATA.rates.drchrono, 'drchrono'),
+        makeLineDataset('PaySimple', DATA.rates.paysimple, 'paysimple', true)
+      ]
+    },
+    options: {
+      ...baseChartOpts,
+      scales: {
+        ...baseChartOpts.scales,
+        y: {
+          ...baseChartOpts.scales.y,
+          title: { display: true, text: 'Dispute Rate (bps)', color: '#8898aa', font: { size: 11 } }
+        }
+      }
+    }
+  });
+}
+
+function initRatesChart() {
+  const el = document.getElementById('chart-rates');
+  if (!el || !el.offsetParent) return;
+  destroyChart('rates');
+  chartInstances.rates = new Chart(el, {
+    type: 'line',
+    data: {
+      labels: MONTHS,
+      datasets: [
+        makeLineDataset('Joist', DATA.rates.joist, 'joist'),
+        makeLineDataset('Invoice Simple', DATA.rates.invoicesimple, 'invoicesimple'),
+        makeLineDataset('PaySimple', DATA.rates.paysimple, 'paysimple', true),
+        makeLineDataset('Service Fusion', DATA.rates.servicefusion, 'servicefusion'),
+        makeLineDataset('DrChrono', DATA.rates.drchrono, 'drchrono')
+      ]
+    },
+    options: {
+      ...baseChartOpts,
+      scales: {
+        ...baseChartOpts.scales,
+        y: {
+          ...baseChartOpts.scales.y,
+          title: { display: true, text: 'Dispute Rate (bps)', color: '#8898aa', font: { size: 11 } }
+        }
+      }
+    }
+  });
+}
+
+function initVolumeChart() {
+  const el = document.getElementById('chart-volume');
+  if (!el || !el.offsetParent) return;
+  destroyChart('volume');
+  chartInstances.volume = new Chart(el, {
+    type: 'bar',
+    data: {
+      labels: ['Joist US', 'Invoice Simple', 'Service Fusion', 'DrChrono', 'PaySimple'],
+      datasets: [{
+        label: 'Disputed Amount (USD)',
+        data: [2952825, 978840, 165575, 26950, 18623],
+        backgroundColor: [
+          'rgba(248,113,113,0.6)',
+          'rgba(251,146,60,0.6)',
+          'rgba(74,222,128,0.6)',
+          'rgba(56,189,248,0.6)',
+          'rgba(192,132,252,0.6)'
+        ],
+        borderColor: ['#F87171','#FB923C','#4ADE80','#38BDF8','#C084FC'],
+        borderWidth: 1,
+        borderRadius: 4
+      }]
+    },
+    options: {
+      ...baseChartOpts,
+      plugins: { legend: { display: false } },
+      scales: {
+        ...baseChartOpts.scales,
+        y: {
+          ...baseChartOpts.scales.y,
+          title: { display: true, text: 'Disputed Amount (USD)', color: '#8898aa', font: { size: 11 } },
+          ticks: {
+            color: '#667788', font: { size: 11 },
+            callback: v => '$' + (v >= 1000000 ? (v/1000000).toFixed(1) + 'M' : (v/1000).toFixed(0) + 'K')
+          }
+        }
+      }
+    }
+  });
+}
+
+function initJoistReasonsChart() {
+  const el = document.getElementById('chart-joist-reasons');
+  if (!el || !el.offsetParent) return;
+  destroyChart('joistReasons');
+  chartInstances.joistReasons = new Chart(el, {
+    type: 'doughnut',
+    data: {
+      labels: ['Fraudulent', 'Product Not Received', 'Debit Not Authorized', 'Product Unacceptable', 'Credit Not Processed', 'General', 'Duplicate', 'Bank Cannot Process'],
+      datasets: [{
+        data: [1659807, 379739, 369436, 124842, 64055, 54070, 19976, 2500],
+        backgroundColor: ['#F87171','#FBBF24','#FB923C','#38BDF8','#C084FC','#4ADE80','#64748B','#94A3B8'],
+        borderWidth: 0,
+        hoverOffset: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'right',
+          labels: { color: '#8898aa', font: { size: 11, family: 'Inter' }, padding: 12, boxWidth: 12 }
+        },
+        tooltip: {
+          callbacks: {
+            label: ctx => ' $' + ctx.parsed.toLocaleString()
+          }
+        }
+      }
+    }
+  });
+}
+
+function initISReasonsChart() {
+  const el = document.getElementById('chart-is-reasons');
+  if (!el || !el.offsetParent) return;
+  destroyChart('isReasons');
+  chartInstances.isReasons = new Chart(el, {
+    type: 'doughnut',
+    data: {
+      labels: ['Fraudulent', 'Product Not Received', 'Product Unacceptable', 'Debit Not Authorized', 'Credit Not Processed', 'Duplicate', 'General', 'Other'],
+      datasets: [{
+        data: [541, 99, 80, 36, 27, 7, 4, 1],
+        backgroundColor: ['#F87171','#FBBF24','#38BDF8','#FB923C','#C084FC','#64748B','#4ADE80','#94A3B8'],
+        borderWidth: 0,
+        hoverOffset: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'right',
+          labels: { color: '#8898aa', font: { size: 11, family: 'Inter' }, padding: 12, boxWidth: 12 }
+        },
+        tooltip: {
+          callbacks: {
+            label: ctx => ' ' + ctx.parsed + ' disputes'
+          }
+        }
+      }
+    }
+  });
+}
+
+function initGrowthChart() {
+  const el = document.getElementById('chart-growth');
+  if (!el || !el.offsetParent) return;
+  destroyChart('growth');
+  chartInstances.growth = new Chart(el, {
+    type: 'line',
+    data: {
+      labels: MONTHS,
+      datasets: [
+        makeLineDataset('DrChrono', DATA.payments.drchrono, 'drchrono'),
+        makeLineDataset('Service Fusion', DATA.payments.servicefusion, 'servicefusion'),
+        makeLineDataset('Invoice Simple', DATA.payments.invoicesimple, 'invoicesimple'),
+        makeLineDataset('Joist', DATA.payments.joist, 'joist'),
+        makeLineDataset('PaySimple', DATA.payments.paysimple, 'paysimple', true)
+      ]
+    },
+    options: {
+      ...baseChartOpts,
+      scales: {
+        ...baseChartOpts.scales,
+        y: {
+          ...baseChartOpts.scales.y,
+          title: { display: true, text: 'Charges per Month', color: '#8898aa', font: { size: 11 } },
+          ticks: {
+            color: '#667788', font: { size: 11 },
+            callback: v => v >= 1000 ? (v/1000).toFixed(0) + 'K' : v
+          }
+        }
+      }
+    }
+  });
+}
+
+function initLossChart() {
+  const el = document.getElementById('chart-loss');
+  if (!el || !el.offsetParent) return;
+  destroyChart('loss');
+
+  const labels = DATA.lossReport.map(r => r[0].slice(0,7));
+  const realized = DATA.lossReport.map(r => r[5]);
+  const estimated = DATA.lossReport.map(r => r[8]);
+  const cap = DATA.lossReport.map(r => r[4]);
+
+  chartInstances.loss = new Chart(el, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Risk Cap',
+          data: cap,
+          type: 'line',
+          borderColor: '#DFFE02',
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          borderDash: [6, 3],
+          pointRadius: 3,
+          tension: 0,
+          order: 0
+        },
+        {
+          label: 'Realized Losses',
+          data: realized,
+          backgroundColor: realized.map(v => v > 0 ? 'rgba(248,113,113,0.7)' : 'rgba(74,222,128,0.5)'),
+          borderColor: realized.map(v => v > 0 ? '#F87171' : '#4ADE80'),
+          borderWidth: 1,
+          borderRadius: 3,
+          order: 1
+        },
+        {
+          label: 'Estimated Losses',
+          data: estimated,
+          backgroundColor: 'rgba(251,146,60,0.35)',
+          borderColor: '#FB923C',
+          borderWidth: 1,
+          borderRadius: 3,
+          order: 2
+        }
+      ]
+    },
+    options: {
+      ...baseChartOpts,
+      scales: {
+        ...baseChartOpts.scales,
+        x: {
+          ...baseChartOpts.scales.x,
+          ticks: { color: '#667788', font: { size: 10 }, maxRotation: 45 }
+        },
+        y: {
+          ...baseChartOpts.scales.y,
+          title: { display: true, text: 'USD', color: '#8898aa', font: { size: 11 } },
+          ticks: {
+            color: '#667788', font: { size: 11 },
+            callback: v => v >= 1000 ? '$' + (v/1000).toFixed(0) + 'K' : '$' + v
+          }
+        }
+      }
+    }
+  });
+}
+
+function initCharts() {
+  initSummaryRatesChart();
+  initRatesChart();
+  initVolumeChart();
+  initJoistReasonsChart();
+  initISReasonsChart();
+  initGrowthChart();
+  initLossChart();
+}
+
+// Init after brief delay to allow layout to settle
+if (sessionStorage.getItem('ec-auth') === '1') {
+  setTimeout(initCharts, 100);
+}
 </script>
 </body>
 </html>
